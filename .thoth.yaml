@@ -20,6 +20,8 @@ managers:
     configuration:
       maintainers:
         - tumido
+        - oindrillac
+        - aakankshaduggal
       assignees:
         - sesheta
       labels: [bot]
