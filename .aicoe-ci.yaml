@@ -8,6 +8,7 @@ build:
    build-stratergy: Source
    build-source-script: "image:///opt/app-root/builder"
    base-image: quay.io/thoth-station/s2i-elyra-custom-notebook:latest
+   custom-tag: latest
    registry: quay.io
    registry-org: os-climate
    registry-project: aicoe-osc-demo
