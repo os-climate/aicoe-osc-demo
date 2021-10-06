@@ -17,6 +17,7 @@ trino = "*"
 pandas = "*"
 pyarrow = "*"
 python-dotenv = "*"
+python-Levenshtein = "*"
 
 [requires]
 python_version = "3.8"
