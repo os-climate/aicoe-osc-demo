@@ -1,61 +1,23 @@
-project-template
+AI CoE Demo Repo for OS-Climate
 ==============================
 
-template for the team to use
+This repository is the central location for the demos the AI CoE team is developing within the [OS-Climate](https://github.com/os-climate) project.
 
-Project Organization
-------------
+## Demo 1 - ETL & Dashboarding
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── Pipfile            <- Pipfile stating package configuration as used by Pipenv.
-    ├── Pipfile.lock       <- Pipfile.lock stating a pinned down software stack with as used by Pipenv.
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file stating direct dependencies if a library
-    │                         is developed.
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    ├── .thoth.yaml        <- Thoth's configuration file
-    ├── .aicoe-ci.yaml     <- AICoE CI configuration file (https://github.com/AICoE/aicoe-ci)
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+This demo provides notebooks and an Elyra pipeline that provide an example of how to use the tools available with [Open Data Hub](https://opendatahub.io/) on an [Operate First](https://www.operate-first.cloud/) cluster to perform ETL and create interactive dashboards and visualizations of our data.
+
+* Ingest raw data into Trino ([Notebook](https://github.com/os-climate/aicoe-osc-demo/blob/master/notebooks/demo1-create-tables.ipynb))
+* Run a join against a different federated data table ([Notebook](https://github.com/os-climate/aicoe-osc-demo/blob/master/notebooks/demo1-join-tables.ipynb))
+* Collect the results ([Pipeline](https://github.com/os-climate/aicoe-osc-demo/blob/master/notebooks/demo1.pipeline))
+* Visualize it in Superset ([Dashboard](https://superset-secure-odh-superset.apps.odh-cl1.apps.os-climate.org/superset/dashboard/3/))
 
 
---------
+## Demo 2 - Model Training and Serving
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+This demo provides notebooks and an Elyra pipeline that provide an example of how to use the tools available with [Open Data Hub](https://opendatahub.io/) on an [Operate First](https://www.operate-first.cloud/) cluster to train an NLP model and deploy it as a service.
+
+* Train an NLP model
+* Track performance metrics
+* Store model in remote storage
+* Deploy model inference service
