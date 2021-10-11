@@ -18,16 +18,18 @@ BASE_EXTRACTION_FOLDER = DATA_FOLDER / "extraction"
 BASE_CURATION_FOLDER = DATA_FOLDER / "curation"
 
 
-if not os.path.exists(BASE_EXTRACTION_FOLDER):
-    os.mkdir(BASE_EXTRACTION_FOLDER)
-if not os.path.exists(BASE_CURATION_FOLDER):
-    os.mkdir(BASE_CURATION_FOLDER)
+# If installed as package, BASE_EXTRACTION_FOLDER will point to site-packages
+# So we need to update how config params are passed
+# if not os.path.exists(BASE_EXTRACTION_FOLDER):
+#     os.mkdir(BASE_EXTRACTION_FOLDER)
+# if not os.path.exists(BASE_CURATION_FOLDER):
+#     os.mkdir(BASE_CURATION_FOLDER)
 
-ckpt = "icdar_19b2_v2.pth" if "cpu" in torch.__version__ else "icdar_19b2.pth"
+ckpt = "icdar_19b2_v2.pth" #if "cpu" in torch.__version__ else "icdar_19b2.pth"
 config_file = (
     "cascade_mask_rcnn_hrnetv2p_w32_20e_coco.py"
-    if "cpu" in torch.__version__
-    else "cascade_mask_rcnn_hrnetv2p_w32_20e.py"
+    # if "cpu" in torch.__version__
+    # else "cascade_mask_rcnn_hrnetv2p_w32_20e.py"
 )
 PDFTableExtractor_kwargs = {
     "batch_size": -1,
