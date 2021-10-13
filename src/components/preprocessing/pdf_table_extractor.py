@@ -68,7 +68,7 @@ class PDFTableExtractor(BaseComponent):
         download_successful = False
         import torch
 
-        device = "cpu" if "cpu" in torch.__version__ else "cuda:0"
+        device = "cpu" if not torch.cuda.is_available() else "cuda:0"
         while not download_successful:
             try:
                 det = init_detector(

@@ -1,4 +1,4 @@
-import os
+"""Default runtime config."""
 import src
 import pathlib
 import torch
@@ -9,7 +9,7 @@ SEED = 42
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 CONFIG_FOLDER = ROOT
-CHECKPOINT_FOLDER = ROOT / "checkpoint"
+CHECKPOINT_FOLDER = ROOT / "models"
 DATA_FOLDER = ROOT / "data"
 BASE_PDF_FOLDER = DATA_FOLDER / "pdfs"
 BASE_ANNOTATION_FOLDER = DATA_FOLDER / "annotations"
@@ -18,7 +18,7 @@ BASE_CURATION_FOLDER = DATA_FOLDER / "curation"
 
 
 ckpt = "icdar_19b2_v2.pth"
-config_file = "cascade_mask_rcnn_hrnetv2p_w32_20e_coco.py"
+config_file = "cascade_mask_rcnn_hrnetv2p_w32_20e_v2.py"
 PDFTableExtractor_kwargs = {
     "batch_size": -1,
     "cscdtabnet_config": CONFIG_FOLDER / config_file,
