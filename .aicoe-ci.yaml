@@ -5,11 +5,10 @@ check:
   - thoth-build
 # Uncomment following lines to build a public image of this repo
 build:
-   build-stratergy: Source
-   build-source-script: "image:///opt/app-root/builder"
-   base-image: quay.io/thoth-station/s2i-elyra-custom-notebook:latest
-   custom-tag: latest
-   registry: quay.io
-   registry-org: os-climate
-   registry-project: aicoe-osc-demo
-   registry-secret: os-climate-pusher-secret
+  build-stratergy: Dockerfile
+  dockerfile-path: Dockerfile
+  custom-tag: latest
+  registry: quay.io
+  registry-org: os-climate
+  registry-project: aicoe-osc-demo
+  registry-secret: os-climate-pusher-secret
