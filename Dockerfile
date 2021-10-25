@@ -11,7 +11,10 @@ ENV JUPYTER_ENABLE_LAB="1" \
     THOTH_DRY_RUN="1" \
     THAMOS_DEBUG="0" \
     THAMOS_VERBOSE="1" \
-    THOTH_PROVENANCE_CHECK="0"
+    THOTH_PROVENANCE_CHECK="0" \
+    GIT_SSL_NO_VERIFY=true \
+    GIT_REPO_NAME="aicoe-osc-demo" \
+    GIT_REPO_URL="https://github.com/os-climate/aicoe-osc-demo"
 
 USER root
 
