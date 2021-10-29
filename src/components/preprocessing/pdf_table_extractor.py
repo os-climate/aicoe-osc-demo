@@ -26,6 +26,9 @@ class PDFTableExtractor(BaseComponent):
         cscdtabnet_ckpt,
         bbox_thres,
         dpi,
+        s3client,
+        pretrained_save_dir,
+        pretrained_s3_prefix,
         name="PDFTableExtractor",
     ):
         """
@@ -46,6 +49,9 @@ class PDFTableExtractor(BaseComponent):
         self.cscdtabnet_ckpt = str(cscdtabnet_ckpt)
         self.bbox_thres = bbox_thres
         self.dpi = dpi
+        self.s3client = s3client
+        self.pretrained_save_dir = pretrained_save_dir
+        self.pretrained_s3_prefix = pretrained_s3_prefix
         self.model = self.__create_model()
 
     def __create_model(self):
@@ -55,31 +61,36 @@ class PDFTableExtractor(BaseComponent):
             an init_detector
         """
         ckpt = os.path.basename(self.cscdtabnet_ckpt)
-        assert ckpt in checkpoint_url.keys(), "Invalid cascadetabnet checkpoint"
+        # assert ckpt in checkpoint_url.keys(), "Invalid cascadetabnet checkpoint"
 
-        def download_ckpt():
-            _ = gdown.download(checkpoint_url[ckpt], output=self.cscdtabnet_ckpt)
+        # def download_ckpt():
+        #     _ = gdown.download(checkpoint_url[ckpt], output=self.cscdtabnet_ckpt)
 
-        if not os.path.exists(self.cscdtabnet_ckpt):
-            _logger.info("cascadetabnet checkpoint does not exist. Downloading...")
-            download_ckpt()
+        # if not os.path.exists(self.cscdtabnet_ckpt):
+        #     _logger.info("cascadetabnet checkpoint does not exist. Downloading...")
+        #     download_ckpt()
+        self.s3client.download_file_from_s3(
+            self.pretrained_save_dir,
+            self.pretrained_s3_prefix,
+            ckpt,
+        )
 
         # In case of connection error and incomplete download
         download_successful = False
         import torch
 
         device = "cpu" if not torch.cuda.is_available() else "cuda:0"
-        while not download_successful:
-            try:
-                det = init_detector(
-                    self.cscdtabnet_config, self.cscdtabnet_ckpt, device=device
-                )
-                download_successful = True
-            except OSError:
-                _logger.info(
-                    "Error while downloading cascadetabnet checkpoint. Redownloading..."
-                )
-                download_ckpt()
+        # while not download_successful:
+        #     try:
+        det = init_detector(
+            self.cscdtabnet_config, self.cscdtabnet_ckpt, device=device
+        )
+                # download_successful = True
+        #     except OSError:
+        #         _logger.info(
+        #             "Error while downloading cascadetabnet checkpoint. Redownloading..."
+        #         )
+        #         download_ckpt()
 
         return det
 

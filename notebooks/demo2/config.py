@@ -7,7 +7,8 @@ import torch
 STAGE = "extract"  # "extract" | "curate "
 SEED = 42
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
+# ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
+ROOT =  pathlib.Path("/opt/app-root")
 CONFIG_FOLDER = ROOT
 CHECKPOINT_FOLDER = ROOT / "models"
 DATA_FOLDER = ROOT / "data"
@@ -16,6 +17,7 @@ BASE_ANNOTATION_FOLDER = DATA_FOLDER / "annotations"
 BASE_EXTRACTION_FOLDER = DATA_FOLDER / "extraction"
 BASE_CURATION_FOLDER = DATA_FOLDER / "curation"
 
+CHECKPOINT_S3_PREFIX = "corpdata/saved_models"
 DATA_S3_PREFIX = "corpdata/ESG"
 BASE_PDF_S3_PREFIX = f"{DATA_S3_PREFIX}/pdfs"
 BASE_ANNOTATION_S3_PREFIX = f"{DATA_S3_PREFIX}/annotations"
