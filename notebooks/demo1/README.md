@@ -6,6 +6,8 @@ This demo consists of jupyter notebook, an elyra pipeline and a Superset Dashboa
 
 Above is a flowchart which demonstrates the workflow followed for this demo. Before jumping into the workflow for recreating this Demo, let’s first take a look at some pre-requisites that are needed to create an initial setup.
 
+[Here](https://youtu.be/TFgsR7UlcHA) is a video that goes over the workflow followed in detail.
+
 ## Initial Setup
 
 * In order to access the environment for the development of the project, you will have to be added to the odh-env-users group [here](https://github.com/orgs/os-climate/teams/odh-env-users). This can be done by opening an issue on [this page](https://github.com/os-climate/aicoe-osc-demo/issues) with the title "Add <USERNAME> to odh-env-users".
