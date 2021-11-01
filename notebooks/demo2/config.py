@@ -2,13 +2,17 @@
 import src
 import pathlib
 import torch
+import os
 
 # General config
 STAGE = "extract"  # "extract" | "curate "
 SEED = 42
 
-# ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-ROOT =  pathlib.Path("/opt/app-root")
+if os.getenv("AUTOMATION"):
+    ROOT =  pathlib.Path("/opt/app-root")
+else:
+    ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
+
 CONFIG_FOLDER = ROOT
 CHECKPOINT_FOLDER = ROOT / "models"
 DATA_FOLDER = ROOT / "data"

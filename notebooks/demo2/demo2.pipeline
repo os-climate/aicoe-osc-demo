@@ -19,7 +19,8 @@
               "S3_ACCESS_KEY=",
               "S3_SECRET_KEY=",
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
-              "S3_BUCKET=ocp-odh-os-demo-s3"
+              "S3_BUCKET=ocp-odh-os-demo-s3",
+              "AUTOMATION=1"
             ],
             "include_subdirectories": false,
             "outputs": [],
@@ -78,7 +79,8 @@
               "S3_ACCESS_KEY=",
               "S3_SECRET_KEY=",
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
-              "S3_BUCKET=ocp-odh-os-demo-s3"
+              "S3_BUCKET=ocp-odh-os-demo-s3",
+              "AUTOMATION=1"
             ],
             "include_subdirectories": false,
             "invalidNodeError": null,
@@ -143,7 +145,8 @@
               "S3_ACCESS_KEY=",
               "S3_SECRET_KEY=",
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
-              "S3_BUCKET=ocp-odh-os-demo-s3"
+              "S3_BUCKET=ocp-odh-os-demo-s3",
+              "AUTOMATION=1"
             ],
             "include_subdirectories": false,
             "invalidNodeError": null,
@@ -201,7 +204,8 @@
               "S3_ACCESS_KEY=",
               "S3_SECRET_KEY=",
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
-              "S3_BUCKET=ocp-odh-os-demo-s3"
+              "S3_BUCKET=ocp-odh-os-demo-s3",
+              "AUTOMATION=1"
             ],
             "include_subdirectories": false,
             "invalidNodeError": null,
