@@ -14,7 +14,7 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "pdf_table_extraction.ipynb",
-            "runtime_image": "quay.io/kachau/aicoe-osc-demo:v0.3",
+            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
             "env_vars": [
               "S3_ACCESS_KEY=",
               "S3_SECRET_KEY=",
@@ -73,7 +73,7 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "pdf_table_curation.ipynb",
-            "runtime_image": "quay.io/kachau/aicoe-osc-demo:v0.3",
+            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
             "env_vars": [
               "S3_ACCESS_KEY=",
               "S3_SECRET_KEY=",
@@ -138,7 +138,7 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "pdf_text_extraction.ipynb",
-            "runtime_image": "quay.io/kachau/aicoe-osc-demo:v0.3",
+            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
             "env_vars": [
               "S3_ACCESS_KEY=",
               "S3_SECRET_KEY=",
@@ -196,7 +196,7 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "pdf_text_curation.ipynb",
-            "runtime_image": "quay.io/kachau/aicoe-osc-demo:v0.3",
+            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
             "env_vars": [
               "S3_ACCESS_KEY=",
               "S3_SECRET_KEY=",
