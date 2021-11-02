@@ -31,6 +31,12 @@ df = s3c.download_df_from_s3(
 _KPI_MAPPING = {str(i[0]): i[1] for i in df[["kpi_id", "question"]].values}
 KPI_MAPPING = {(float(key)): value for key, value in _KPI_MAPPING.items()}
 
+_KPI_MAPPING_MODEL = {
+    str(i[0]): (i[1], [j.strip() for j in i[2].split(',')]) \
+    for i in df[['kpi_id', 'question', 'sectors']].values
+}
+KPI_MAPPING_MODEL = {(float(key)): value for key, value in _KPI_MAPPING_MODEL.items()}
+
 # Which questions should be added the year
 ADD_YEAR = df[df["add_year"]].kpi_id.tolist()
 
