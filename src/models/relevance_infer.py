@@ -35,7 +35,7 @@ class BaseRelevanceInfer(ABC):
             # Filter KPIs based on section and whether they can be found in text or table.
             self.questions = [
                 q_text		  
-                for q_id, (q_text, sect) in kpi_mapping.KPI_MAPPING.items()
+                for q_id, (q_text, sect) in kpi_mapping.KPI_MAPPING_MODEL.items()
                 if len(set(sect).intersection(set(self.infer_config.sectors))) > 0 and self.data_type.upper() in kpi_mapping.KPI_CATEGORY[q_id]
             ]
 
