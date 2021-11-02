@@ -93,8 +93,8 @@
             "ui_data": {
               "label": "pdf_table_curation.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 537,
-              "y_pos": 181,
+              "x_pos": 500,
+              "y_pos": 125,
               "description": "Notebook file"
             }
           },
@@ -112,7 +112,7 @@
               },
               "links": [
                 {
-                  "id": "0cad9aa8-9df7-4261-b71f-6dc77e18d880",
+                  "id": "b3a87384-3469-4680-b51d-7db238f0e23d",
                   "node_id_ref": "586119fd-069e-43b1-a0ce-4cbbfd4621c0",
                   "port_id_ref": "outPort"
                 }
@@ -159,8 +159,8 @@
             "ui_data": {
               "label": "pdf_text_extraction.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 123,
-              "y_pos": 322,
+              "x_pos": 131,
+              "y_pos": 307,
               "description": "Notebook file"
             }
           },
@@ -218,8 +218,8 @@
             "ui_data": {
               "label": "pdf_text_curation.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 544,
-              "y_pos": 321,
+              "x_pos": 490,
+              "y_pos": 359,
               "description": "Notebook file"
             }
           },
@@ -258,11 +258,105 @@
               }
             }
           ]
+        },
+        {
+          "id": "18630277-8ff9-4a73-902b-a0765427992d",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "filename": "infer_relevance.ipynb",
+            "runtime_image": "quay.io/kachau/aicoe-osc-demo:latest",
+            "env_vars": [
+              "S3_ACCESS_KEY=",
+              "S3_SECRET_KEY=",
+              "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
+              "S3_BUCKET=ocp-odh-os-demo-s3",
+              "AUTOMATION=1"
+            ],
+            "include_subdirectories": false,
+            "invalidNodeError": null,
+            "outputs": [],
+            "dependencies": [
+              "config_farm_train.py",
+              "config.py"
+            ],
+            "cpu": 2,
+            "memory": 16,
+            "gpu": 1,
+            "ui_data": {
+              "label": "infer_relevance.ipynb",
+              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
+              "x_pos": 482,
+              "y_pos": 245,
+              "description": "Notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "1d606d15-6637-4ea2-b7b9-b787fa505bcd",
+                  "node_id_ref": "9b7ba94a-55cc-45a0-9810-8918ea43c6b4",
+                  "port_id_ref": "outPort"
+                },
+                {
+                  "id": "de52b8d6-546f-4c38-a52b-dac91f7df642",
+                  "node_id_ref": "586119fd-069e-43b1-a0ce-4cbbfd4621c0",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
         }
       ],
       "app_data": {
         "ui_data": {
-          "comments": []
+          "comments": [
+            {
+              "id": "8259cba1-1035-4a73-8589-a42fe6aee4f8",
+              "x_pos": 761.0000152587891,
+              "y_pos": 231.0000114440918,
+              "width": 175,
+              "height": 63,
+              "class_name": "d3-comment-rect",
+              "content": "\nTraining Notebook (Forthcoming)",
+              "associated_id_refs": [
+                {
+                  "node_ref": "1f7f1a1a-916f-48f5-9e1e-0d13868811f7"
+                },
+                {
+                  "node_ref": "18630277-8ff9-4a73-902b-a0765427992d"
+                },
+                {
+                  "node_ref": "0fb89b0d-ea91-4119-a894-b65f141891eb"
+                }
+              ]
+            }
+          ]
         },
         "version": 3
       },

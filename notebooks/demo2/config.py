@@ -23,12 +23,17 @@ BASE_CURATION_FOLDER = DATA_FOLDER / "curation"
 
 CHECKPOINT_S3_PREFIX = "corpdata/saved_models"
 DATA_S3_PREFIX = "corpdata/ESG"
-BASE_PDF_S3_PREFIX = f"{DATA_S3_PREFIX}/pdfs"
 BASE_ANNOTATION_S3_PREFIX = f"{DATA_S3_PREFIX}/annotations"
-BASE_EXTRACTION_S3_PREFIX = f"{DATA_S3_PREFIX}/extraction"
 BASE_CURATION_S3_PREFIX = f"{DATA_S3_PREFIX}/curation"
 BASE_INFER_S3_PREFIX = f"{DATA_S3_PREFIX}/infer"
 
+if os.getenv("AUTOMATION"):
+    BASE_PDF_S3_PREFIX = f"{DATA_S3_PREFIX}/pdfs_sample"
+    BASE_EXTRACTION_S3_PREFIX = f"{DATA_S3_PREFIX}/extraction_sample"
+else:
+    BASE_PDF_S3_PREFIX = f"{DATA_S3_PREFIX}/pdfs_sample"
+    BASE_EXTRACTION_S3_PREFIX = f"{DATA_S3_PREFIX}/extraction_sample"
+    
 ckpt = "icdar_19b2_v2.pth"
 config_file = "cascade_mask_rcnn_hrnetv2p_w32_20e_v2.py"
 PDFTableExtractor_kwargs = {

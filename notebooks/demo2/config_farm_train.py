@@ -11,7 +11,11 @@ LOGGING_MAPPING = {"info": INFO, "warning": WARNING, "debug": DEBUG}
 
 class Config:
     def __init__(self, project_name, experiment_type="RELEVANCE"):
-        self.root = str(pathlib.Path(src.__file__).resolve().parent.parent ) 
+        
+        if os.getenv("AUTOMATION"):
+            self.root =  pathlib.Path("/opt/app-root")
+        else:
+            self.root = pathlib.Path(src.__file__).resolve().parent.parent
         self.experiment_type = experiment_type
         self.experiment_name = project_name  #"test_farm"
         self.data_type = "Text"  # Text | Table
