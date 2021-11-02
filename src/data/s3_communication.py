@@ -139,7 +139,8 @@ class S3Communication(object):
             # download files at the root of this prefix
             for file in result.get("Contents", []):
                 dest_filename = osp.basename(file.get("Key"))
-                dest_pathname = osp.join(destination_dir, dest_filename)
-                if not osp.exists(osp.dirname(dest_pathname)):
-                    os.makedirs(osp.dirname(dest_pathname))
-                self.download_file_from_s3(dest_pathname, s3_prefix, dest_filename)
+                if dest_filename:
+                    dest_pathname = osp.join(destination_dir, dest_filename)
+                    if not osp.exists(osp.dirname(dest_pathname)):
+                        os.makedirs(osp.dirname(dest_pathname))
+                    self.download_file_from_s3(dest_pathname, s3_prefix, dest_filename)
