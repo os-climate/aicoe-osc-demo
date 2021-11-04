@@ -37,8 +37,6 @@ optuna = "*"
 Flask = "==1.1.4"
 pyspellchecker = "*"
 spacy = "*"
-jupyter = "*"
-jupyterlab = "*"
 ipywidgets = "*"
 jupyterlab_widgets = "*"
 
