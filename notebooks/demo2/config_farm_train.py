@@ -1,7 +1,6 @@
 import pathlib
 import os
 from farm.modeling.prediction_head import TextClassificationHead
-import src
 import torch
 from logging import getLogger, WARNING, INFO, DEBUG
 
@@ -11,7 +10,7 @@ LOGGING_MAPPING = {"info": INFO, "warning": WARNING, "debug": DEBUG}
 
 class Config:
     def __init__(self, project_name, experiment_type="RELEVANCE"):
-        self.root = str(pathlib.Path(src.__file__).resolve().parent.parent ) 
+        self.root = pathlib.Path(".").resolve().parent.parent
         self.experiment_type = experiment_type
         self.experiment_name = project_name  #"test_farm"
         self.data_type = "Text"  # Text | Table
@@ -133,7 +132,7 @@ class InferConfig(Config):
                               # Set to None to let Inferencer use all CPU cores minus one.
         self.disable_tqdm = True # To not see the progress bar at inference time, set to True
         self.extracted_dir = os.path.join(self.root, "data", "extraction")
-        self.result_dir = {"Text": os.path.join(self.root, "data", "infer")}
+        self.result_dir = {"Text": os.path.join(self.root, "data", "infer_relevance")}
         self.kpi_questions = []
         # set to  ["OG", "CM", "CU"] for KPIs of all sectors.
         self.sectors = ["OG", "CM", "CU"]  #["UT"]
