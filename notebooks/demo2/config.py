@@ -22,7 +22,7 @@ BASE_EXTRACTION_FOLDER = DATA_FOLDER / "extraction"
 BASE_CURATION_FOLDER = DATA_FOLDER / "curation"
 
 CHECKPOINT_S3_PREFIX = "corpdata/saved_models"
-DATA_S3_PREFIX = "corpdata/ESG"
+DATA_S3_PREFIX = "corpdata/ESG/pipeline_run/samples_4"
 BASE_PDF_S3_PREFIX = f"{DATA_S3_PREFIX}/pdfs"
 BASE_ANNOTATION_S3_PREFIX = f"{DATA_S3_PREFIX}/annotations"
 BASE_EXTRACTION_S3_PREFIX = f"{DATA_S3_PREFIX}/extraction"
