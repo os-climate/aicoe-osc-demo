@@ -1,0 +1,361 @@
+{
+    "dashboards": [
+        {
+            "__Dashboard__": {
+                "css": "",
+                "dashboard_title": "OS Climate NLP demo",
+                "description": null,
+                "json_metadata": "{\"show_native_filters\": true, \"chart_configuration\": {\"71\": {\"id\": 71, \"crossFilters\": {\"scope\": {\"rootPath\": [\"ROOT_ID\"], \"excluded\": [71]}}}}, \"remote_id\": 15}",
+                "position_json": "{\"CHART-HweB9nZJTq\":{\"children\":[],\"id\":\"CHART-HweB9nZJTq\",\"meta\":{\"chartId\":70,\"height\":16,\"sliceName\":\"Select company name (PDF)\",\"uuid\":\"8cafba17-cef3-4dbd-b94e-a608ec9e91fc\",\"width\":6},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-XY9efJ52A\"],\"type\":\"CHART\"},\"CHART-M20XtgQI_5\":{\"children\":[],\"id\":\"CHART-M20XtgQI_5\",\"meta\":{\"chartId\":69,\"height\":16,\"sliceName\":\"Select KPI\",\"uuid\":\"9f4aece2-55e7-4e8e-8154-0957b3796fb0\",\"width\":6},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-XY9efJ52A\"],\"type\":\"CHART\"},\"CHART-MlpZrXQLrD\":{\"children\":[],\"id\":\"CHART-MlpZrXQLrD\",\"meta\":{\"chartId\":72,\"height\":50,\"sliceName\":\"KPI Answers Distribution Across Companies\",\"uuid\":\"cde365ab-de78-46c6-9817-5c4e8a3e01ca\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-TVni2CwrM2\"],\"type\":\"CHART\"},\"CHART-j7UP1P06ly\":{\"children\":[],\"id\":\"CHART-j7UP1P06ly\",\"meta\":{\"chartId\":71,\"height\":50,\"sliceName\":\"Kpi Answers\",\"uuid\":\"2a50024a-b167-4a7c-a1de-ba850c345048\",\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-phCHapx7P3\"],\"type\":\"CHART\"},\"DASHBOARD_VERSION_KEY\":\"v2\",\"GRID_ID\":{\"children\":[\"ROW-E72pf_jeWm\",\"ROW-XY9efJ52A\",\"ROW-pqHxd1QLZp\",\"ROW-phCHapx7P3\",\"ROW-TVni2CwrM2\"],\"id\":\"GRID_ID\",\"parents\":[\"ROOT_ID\"],\"type\":\"GRID\"},\"HEADER_ID\":{\"id\":\"HEADER_ID\",\"meta\":{\"text\":\"OS Climate NLP demo\"},\"type\":\"HEADER\"},\"MARKDOWN-76L21aD9PY\":{\"children\":[],\"id\":\"MARKDOWN-76L21aD9PY\",\"meta\":{\"code\":\"# OS Climate NLP demo\\n\\nThe following dashboard shows the prediction output of an NLP model that finds answers to KPI questions from climate report PDFs of different companies. \\n\\nIn the next two cells, you can select the KPI question and the company PDF name of interest. You can also leave the cells blank to see all the data for all possible selections.\",\"height\":17,\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-E72pf_jeWm\"],\"type\":\"MARKDOWN\"},\"MARKDOWN-A7tjEfOVTp\":{\"children\":[],\"id\":\"MARKDOWN-A7tjEfOVTp\",\"meta\":{\"code\":\"### Based on your selection, the next table will show answers to the KPI questions.\",\"height\":7,\"width\":12},\"parents\":[\"ROOT_ID\",\"GRID_ID\",\"ROW-pqHxd1QLZp\"],\"type\":\"MARKDOWN\"},\"ROOT_ID\":{\"children\":[\"GRID_ID\"],\"id\":\"ROOT_ID\",\"type\":\"ROOT\"},\"ROW-E72pf_jeWm\":{\"children\":[\"MARKDOWN-76L21aD9PY\"],\"id\":\"ROW-E72pf_jeWm\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-TVni2CwrM2\":{\"children\":[\"CHART-MlpZrXQLrD\"],\"id\":\"ROW-TVni2CwrM2\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-XY9efJ52A\":{\"children\":[\"CHART-M20XtgQI_5\",\"CHART-HweB9nZJTq\"],\"id\":\"ROW-XY9efJ52A\",\"meta\":{\"0\":\"ROOT_ID\",\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-phCHapx7P3\":{\"children\":[\"CHART-j7UP1P06ly\"],\"id\":\"ROW-phCHapx7P3\",\"meta\":{\"0\":\"ROOT_ID\",\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"},\"ROW-pqHxd1QLZp\":{\"children\":[\"MARKDOWN-A7tjEfOVTp\"],\"id\":\"ROW-pqHxd1QLZp\",\"meta\":{\"background\":\"BACKGROUND_TRANSPARENT\"},\"parents\":[\"ROOT_ID\",\"GRID_ID\"],\"type\":\"ROW\"}}",
+                "slices": [
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "urgentem.infer_kpi",
+                            "datasource_type": "table",
+                            "id": 69,
+                            "params": "{\"adhoc_filters\": [], \"datasource\": \"49__table\", \"date_filter\": false, \"extra_form_data\": {}, \"filter_configs\": [{\"asc\": true, \"clearable\": true, \"column\": \"kpi\", \"key\": \"zkGG_lSq4\", \"multiple\": true, \"searchAllOptions\": false}], \"instant_filtering\": true, \"slice_id\": 69, \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"time_range_endpoints\": [\"inclusive\", \"exclusive\"], \"url_params\": {}, \"viz_type\": \"filter_box\", \"remote_id\": 69, \"datasource_name\": \"infer_kpi\", \"schema\": \"urgentem\", \"database_name\": \"OSC_DataCommons_Dev\"}",
+                            "query_context": "{\"datasource\":{\"id\":49,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"time_range_endpoints\":[\"inclusive\",\"exclusive\"],\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[],\"metrics\":[],\"annotation_layers\":[],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{}}],\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "Select KPI",
+                            "viz_type": "filter_box"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "urgentem.infer_kpi",
+                            "datasource_type": "table",
+                            "id": 70,
+                            "params": "{\"adhoc_filters\": [], \"datasource\": \"49__table\", \"date_filter\": false, \"extra_form_data\": {}, \"filter_configs\": [{\"asc\": true, \"clearable\": true, \"column\": \"pdf_name\", \"key\": \"mmTLiU2N7\", \"multiple\": true, \"searchAllOptions\": false}], \"instant_filtering\": true, \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"time_range_endpoints\": [\"inclusive\", \"exclusive\"], \"url_params\": {}, \"viz_type\": \"filter_box\", \"remote_id\": 70, \"datasource_name\": \"infer_kpi\", \"schema\": \"urgentem\", \"database_name\": \"OSC_DataCommons_Dev\"}",
+                            "query_context": "{\"datasource\":{\"id\":49,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"time_range_endpoints\":[\"inclusive\",\"exclusive\"],\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[],\"metrics\":[],\"annotation_layers\":[],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{}}],\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "Select company name (PDF)",
+                            "viz_type": "filter_box"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "urgentem.infer_kpi",
+                            "datasource_type": "table",
+                            "id": 71,
+                            "params": "{\"adhoc_filters\": [], \"all_columns\": [\"pdf_name\", \"kpi\", \"answer\"], \"color_pn\": true, \"datasource\": \"49__table\", \"extra_form_data\": {}, \"groupby\": [], \"order_by_cols\": [], \"order_desc\": true, \"percent_metrics\": [], \"query_mode\": \"raw\", \"row_limit\": 10000, \"server_page_length\": 10, \"show_cell_bars\": true, \"slice_id\": 71, \"table_timestamp_format\": \"smart_date\", \"time_grain_sqla\": \"P1D\", \"time_range\": \"No filter\", \"time_range_endpoints\": [\"inclusive\", \"exclusive\"], \"url_params\": {\"native_filters\": \"()\"}, \"viz_type\": \"table\", \"remote_id\": 71, \"datasource_name\": \"infer_kpi\", \"schema\": \"urgentem\", \"database_name\": \"OSC_DataCommons_Dev\"}",
+                            "query_context": "{\"datasource\":{\"id\":49,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"filters\":[],\"extras\":{\"time_grain_sqla\":\"P1D\",\"time_range_endpoints\":[\"inclusive\",\"exclusive\"],\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"pdf_name\",\"kpi\",\"answer\"],\"orderby\":[],\"annotation_layers\":[],\"row_limit\":10000,\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{\"native_filters\":\"()\"},\"custom_params\":{},\"custom_form_data\":{},\"post_processing\":[]}],\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "Kpi Answers",
+                            "viz_type": "table"
+                        }
+                    },
+                    {
+                        "__Slice__": {
+                            "cache_timeout": null,
+                            "datasource_name": "urgentem.infer_kpi",
+                            "datasource_type": "table",
+                            "id": 72,
+                            "params": "{\"adhoc_filters\": [], \"bottom_margin\": \"auto\", \"color_scheme\": \"supersetColors\", \"columns\": [], \"datasource\": \"49__table\", \"extra_form_data\": {}, \"groupby\": [\"answer\"], \"label_colors\": {}, \"metrics\": [{\"aggregate\": \"COUNT\", \"column\": {\"column_name\": \"answer\", \"description\": null, \"expression\": null, \"filterable\": true, \"groupby\": true, \"id\": 1075, \"is_dttm\": false, \"python_date_format\": null, \"type\": \"VARCHAR\", \"type_generic\": 1, \"verbose_name\": null}, \"expressionType\": \"SIMPLE\", \"hasCustomLabel\": false, \"isNew\": false, \"label\": \"COUNT(answer)\", \"optionName\": \"metric_ubq1n52238i_dpebbojx6q\", \"sqlExpression\": null}], \"order_desc\": true, \"row_limit\": null, \"slice_id\": 72, \"time_range\": \"No filter\", \"time_range_endpoints\": [\"inclusive\", \"exclusive\"], \"url_params\": {}, \"viz_type\": \"dist_bar\", \"x_ticks_layout\": \"auto\", \"y_axis_bounds\": [null, null], \"y_axis_format\": \"SMART_NUMBER\", \"remote_id\": 72, \"datasource_name\": \"infer_kpi\", \"schema\": \"urgentem\", \"database_name\": \"OSC_DataCommons_Dev\"}",
+                            "query_context": "{\"datasource\":{\"id\":49,\"type\":\"table\"},\"force\":false,\"queries\":[{\"time_range\":\"No filter\",\"filters\":[],\"extras\":{\"time_range_endpoints\":[\"inclusive\",\"exclusive\"],\"having\":\"\",\"having_druid\":[],\"where\":\"\"},\"applied_time_extras\":{},\"columns\":[\"answer\"],\"metrics\":[{\"aggregate\":\"COUNT\",\"column\":{\"column_name\":\"answer\",\"description\":null,\"expression\":null,\"filterable\":true,\"groupby\":true,\"id\":1075,\"is_dttm\":false,\"python_date_format\":null,\"type\":\"VARCHAR\",\"type_generic\":1,\"verbose_name\":null},\"expressionType\":\"SIMPLE\",\"hasCustomLabel\":false,\"isNew\":false,\"label\":\"COUNT(answer)\",\"optionName\":\"metric_ubq1n52238i_dpebbojx6q\",\"sqlExpression\":null}],\"annotation_layers\":[],\"timeseries_limit\":0,\"order_desc\":true,\"url_params\":{},\"custom_params\":{},\"custom_form_data\":{}}],\"result_format\":\"json\",\"result_type\":\"full\"}",
+                            "slice_name": "KPI Answers Distribution Across Companies",
+                            "viz_type": "dist_bar"
+                        }
+                    }
+                ],
+                "slug": null
+            }
+        }
+    ],
+    "datasources": [
+        {
+            "__SqlaTable__": {
+                "cache_timeout": null,
+                "columns": [
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "pdf_name",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1072,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "VARCHAR",
+                            "uuid": "a8fbfc05-392a-4c98-8ac7-fd0f9f4ed63b",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "kpi",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1073,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "VARCHAR",
+                            "uuid": "30fc565a-db44-4417-b7f7-326dcf2a5f29",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "kpi_id",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1074,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "BIGINT",
+                            "uuid": "05d86c54-e8b3-415f-94d4-79670f5e9695",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "answer",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1075,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "VARCHAR",
+                            "uuid": "9899c88a-1450-4b12-80ce-4a5bf6a006aa",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "page",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1076,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "BIGINT",
+                            "uuid": "713bbc66-73c2-468f-aca1-730cf0363afa",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "paragraph",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1077,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "VARCHAR",
+                            "uuid": "1f6c9bff-b1e3-4bbc-a203-dc5025c5ee2a",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "source",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1078,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "VARCHAR",
+                            "uuid": "179f6dc2-eb62-4bd6-afb5-76adef160c73",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "score",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1079,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "REAL",
+                            "uuid": "33724346-a7ab-43dd-b0bd-93c35df8b3b4",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "no_ans_score",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1080,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "REAL",
+                            "uuid": "a87df703-8523-4c6a-a62f-1428ff961c3f",
+                            "verbose_name": null
+                        }
+                    },
+                    {
+                        "__TableColumn__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "column_name": "no_answer_score_plus_boost",
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "description": null,
+                            "expression": null,
+                            "filterable": true,
+                            "groupby": true,
+                            "id": 1081,
+                            "is_active": true,
+                            "is_dttm": false,
+                            "python_date_format": null,
+                            "table_id": 49,
+                            "type": "REAL",
+                            "uuid": "645edf57-fd09-487c-ada0-a1eacc1f7f25",
+                            "verbose_name": null
+                        }
+                    }
+                ],
+                "database_id": 4,
+                "default_endpoint": null,
+                "description": null,
+                "extra": null,
+                "fetch_values_predicate": null,
+                "filter_select_enabled": false,
+                "main_dttm_col": null,
+                "metrics": [
+                    {
+                        "__SqlMetric__": {
+                            "changed_by_fk": 15,
+                            "changed_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "created_by_fk": 15,
+                            "created_on": {
+                                "__datetime__": "2021-11-18T17:32:53"
+                            },
+                            "d3format": null,
+                            "description": null,
+                            "expression": "COUNT(*)",
+                            "extra": null,
+                            "id": 51,
+                            "metric_name": "count",
+                            "metric_type": "count",
+                            "table_id": 49,
+                            "uuid": "883ce6ab-3b96-4f24-bb1d-af983e8ff6c0",
+                            "verbose_name": "COUNT(*)",
+                            "warning_text": null
+                        }
+                    }
+                ],
+                "offset": 0,
+                "params": "{\"remote_id\": 49, \"database_name\": \"OSC_DataCommons_Dev\"}",
+                "schema": "urgentem",
+                "sql": null,
+                "table_name": "infer_kpi",
+                "template_params": null
+            }
+        }
+    ]
+}
