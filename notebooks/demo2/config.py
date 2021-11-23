@@ -23,14 +23,15 @@ BASE_CURATION_FOLDER = DATA_FOLDER / "curation"
 BASE_INFER_KPI_FOLDER = DATA_FOLDER / "infer_KPI"
 
 CHECKPOINT_S3_PREFIX = "corpdata/saved_models"
-DATA_S3_PREFIX = "corpdata/ESG/pipeline_run/samples_4"
+DATA_S3_PREFIX = "corpdata/ESG/pipeline_run/samples_10"
 BASE_PDF_S3_PREFIX = f"{DATA_S3_PREFIX}/pdfs"
 BASE_ANNOTATION_S3_PREFIX = f"{DATA_S3_PREFIX}/annotations"
 BASE_EXTRACTION_S3_PREFIX = f"{DATA_S3_PREFIX}/extraction"
 BASE_CURATION_S3_PREFIX = f"{DATA_S3_PREFIX}/curation"
 BASE_INFER_RELEVANCE_S3_PREFIX = f"{DATA_S3_PREFIX}/infer_relevance"
 BASE_INFER_KPI_S3_PREFIX = f"{DATA_S3_PREFIX}/infer_KPI"
-BASE_INFER_KPI_TABLE_S3_PREFIX = f"{DATA_S3_PREFIX}/KPI_table"
+
+BASE_INFER_KPI_TABLE_S3_PREFIX = "corpdata/ESG/KPI_table"
 
 ckpt = "icdar_19b2_v2.pth"
 config_file = "cascade_mask_rcnn_hrnetv2p_w32_20e_v2.py"
