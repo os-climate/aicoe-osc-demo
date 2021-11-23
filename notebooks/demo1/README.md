@@ -64,9 +64,10 @@ Insert all inputs for the Runtime"
 - Kubeflow Pipeline API Endpoint: `http://ml-pipeline-ui-kubeflow.apps.odh-cl1.apps.os-climate.org/pipeline`
 - Kubeflow Pipeline Engine: `Tekton`
 - Cloud Object Storage Endpoint: `S3_ENDPOINT`
-- Cloud Object Storage Username: `S3_ACCESS_KEY`
-- Cloud Object Storage Password: `S3_SECRET_KEY`
+- Cloud Object Storage Username: `AWS_ACCESS_KEY_ID`
+- Cloud Object Storage Password: `AWS_SECRET_ACCESS_KEY`
 - Cloud Object Storage Bucket Name: `S3_BUCKET`
+- Cloud Object Storage Credentials Secret: `S3_SECRET`
 
 #### Set up Notebook Properties
 
@@ -78,7 +79,7 @@ To trigger this pipeline, you need to make sure that the node properties for eac
 
 ![Set up Notebook Properties](../../docs/assets/demo1-notebook-properties.png)
 
-You need to fill in the cloud object storage bucket credentials like `S3_ENDPOINT`, `S3_ACCESS_KEY`, `S3_SECRET_KEY`, `S3_BUCKET`, and the Trino database access credentials like `TRINO_USER`, `TRINO_PASSWD`, `TRINO_HOST`, `TRINO_PORT`
+You need to fill in the cloud object storage bucket credentials like `S3_ENDPOINT`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET`, and the Trino database access credentials like `TRINO_USER`, `TRINO_PASSWD`, `TRINO_HOST`, `TRINO_PORT`. Please note, if you are using the Cloud Object Storage Credentials Secret field in the Kubeflow Pipelines Runtime configuration, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` can be omitted from the notebook properties as kubeflow is automatically able to read the encrypted credentials from the secret defined in OpenShift.
 
 #### Run Pipeline
 

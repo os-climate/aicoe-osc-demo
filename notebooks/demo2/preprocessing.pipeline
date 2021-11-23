@@ -16,8 +16,6 @@
             "filename": "pdf_table_extraction.ipynb",
             "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
             "env_vars": [
-              "S3_ACCESS_KEY=",
-              "S3_SECRET_KEY=",
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
               "S3_BUCKET=ocp-odh-os-demo-s3",
               "AUTOMATION=1"
@@ -76,8 +74,6 @@
             "filename": "pdf_table_curation.ipynb",
             "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
             "env_vars": [
-              "S3_ACCESS_KEY=",
-              "S3_SECRET_KEY=",
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
               "S3_BUCKET=ocp-odh-os-demo-s3",
               "AUTOMATION=1"
@@ -142,8 +138,6 @@
             "filename": "pdf_text_extraction.ipynb",
             "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
             "env_vars": [
-              "S3_ACCESS_KEY=",
-              "S3_SECRET_KEY=",
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
               "S3_BUCKET=ocp-odh-os-demo-s3",
               "AUTOMATION=1"
@@ -201,8 +195,6 @@
             "filename": "pdf_text_curation.ipynb",
             "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
             "env_vars": [
-              "S3_ACCESS_KEY=",
-              "S3_SECRET_KEY=",
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
               "S3_BUCKET=ocp-odh-os-demo-s3",
               "AUTOMATION=1"
