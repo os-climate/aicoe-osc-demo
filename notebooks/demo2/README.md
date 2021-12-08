@@ -63,6 +63,7 @@ The source code for preprocessing is available in the `src` directory preinstall
 * To setup the Elyra pipeline, use instructions from demo 1 Readme section on [ML pipelines](https://github.com/oindrillac/aicoe-osc-demo/tree/demo1-doc/notebooks/demo1#ml-pipeline)
 
 
-## Seldon service
+## Superset Visualization
 
-* Coming soon
+* The Superset dashboard is the final step of demo 2. The automated Elyra inference pipeline answers KPI questions from raw pdfs and stores the results in the Trino table. The dashboard queries the table according to user selected filters and shows the answers. To interact with the results, find the [dashboard here](https://superset-secure-odh-superset.apps.odh-cl1.apps.os-climate.org/superset/dashboard/15).
+
