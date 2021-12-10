@@ -14,7 +14,7 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "pdf_text_extraction.ipynb",
-            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
+            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
             "env_vars": [
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
               "S3_BUCKET=ocp-odh-os-demo-s3",
@@ -71,7 +71,7 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "infer_relevance.ipynb",
-            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
+            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
             "env_vars": [
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
               "S3_BUCKET=ocp-odh-os-demo-s3",
@@ -137,7 +137,7 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "infer_kpi.ipynb",
-            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
+            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
             "env_vars": [
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
               "S3_BUCKET=ocp-odh-os-demo-s3",
@@ -204,7 +204,7 @@
           "op": "execute-notebook-node",
           "app_data": {
             "filename": "create_results_table.ipynb",
-            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:latest",
+            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
             "env_vars": [
               "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
               "S3_BUCKET=ocp-odh-os-demo-s3",
