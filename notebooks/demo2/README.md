@@ -1,10 +1,12 @@
 # Demo 2: NLP model inference pipeline using Open Data Hub
 
-This demo shows how to use [Open Data Hub](https://opendatahub.io/) (ODH) services and infrastructure to define pipelines that preprocess data and run inference using a Natural Language Processing (NLP) model. Specifically, we adapt the data processing and inference pipelines developed by the ALLIANZ NLP team for the OS climate project in this [repository](https://github.com/os-climate/corporate_data_pipeline). The pipeline takes raw pdf files as input and extracts the text content from them. Then, it uses a pre-trained language model to determine which paragraphs are relevant to answering each KPI question. Finally, it uses another pre-trained language model to extract precise answers for these questions from the corresponding relevant paragraphs.
- 
-The key components of the ODH infrastructure used in this demo are [JupyterHub](https://JupyterHub-odh-JupyterHub.apps.odh-cl1.apps.os-climate.org/) with a container image and Elyra pipelines with the [Kubeflow](http://ml-pipeline-ui-kubeflow.apps.odh-cl1.apps.os-climate.org/) runtime. The source data, processed data, trained model, and the output data are all stored on a bucket on the Ceph S3 storage. The following flowchart depicts the overview of different stages of the project.
+This demo shows how to use [Open Data Hub](https://opendatahub.io/) (ODH) services and infrastructure to define pipelines that preprocess data and run inference using a Natural Language Processing (NLP) model, and then display the results on a dashboard. Specifically, we adapt the data processing and inference pipelines developed by the ALLIANZ NLP team for the OS climate project in this [repository](https://github.com/os-climate/corporate_data_pipeline). The pipeline takes raw pdf files as input and extracts the text content from them. Then, it uses a pre-trained language model to determine which paragraphs are relevant to answering each KPI question. Next, it uses another pre-trained language model to extract precise answers for these questions from the corresponding relevant paragraphs. Finally, it uploads these results to a table on Trino.
+
+The key components of the ODH infrastructure used in this demo are [JupyterHub](https://JupyterHub-odh-JupyterHub.apps.odh-cl1.apps.os-climate.org/) with a container image, Elyra pipelines with the [Kubeflow](http://ml-pipeline-ui-kubeflow.apps.odh-cl1.apps.os-climate.org/) runtime, and [Apache Superset](https://superset-secure-odh-superset.apps.odh-cl1.apps.os-climate.org). The source data, processed data, trained model, and the output data are all stored on a bucket on the Ceph S3 storage. The following flowchart depicts the overview of different stages of the project.
 
 ![Demo 2 Flowchart](../../docs/assets/demo2-viz.png)
+
+[Here](https://youtu.be/lGeT615YNlM) is a video that goes over the workflow followed in detail.
 
 ## JupyterHub Image Setup (AICoE-CI, Thoth)
 
