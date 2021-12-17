@@ -6,7 +6,7 @@ The key components of the ODH infrastructure used in this demo are [JupyterHub](
 
 ![Demo 2 Flowchart](../../docs/assets/demo2-viz.png)
 
-[Here](https://youtu.be/lGeT615YNlM) is a video that goes over the workflow followed in detail.
+[![Demo 2](https://img.youtube.com/vi/lGeT615YNlM/0.jpg)](https://youtu.be/lGeT615YNlM)
 
 ## JupyterHub Image Setup (AICoE-CI, Thoth)
 

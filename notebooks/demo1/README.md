@@ -6,7 +6,7 @@ This demo consists of jupyter notebook, an elyra pipeline and a Superset Dashboa
 
 Above is a flowchart which demonstrates the workflow followed for this demo. Before jumping into the workflow for recreating this Demo, let’s first take a look at some pre-requisites that are needed to create an initial setup.
 
-[Here](https://youtu.be/TFgsR7UlcHA) is a video that goes over the workflow followed in detail.
+[![Demo 1](https://img.youtube.com/vi/TFgsR7UlcHA/0.jpg)](https://youtu.be/TFgsR7UlcHA)
 
 ## Initial Setup
 
