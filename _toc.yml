@@ -1,0 +1,16 @@
+format: jb-book
+root: README
+parts:
+  - caption: Demo 1 - ETL & Dashboarding 
+    chapters:
+    - file: notebooks/demo1/README
+    - file: notebooks/demo1/demo1-create-tables
+    - file: notebooks/demo1/demo1-join-tables
+
+  - caption: Demo 2 - Automated Inference Pipeline and Dashboarding
+    chapters:
+    - file: notebooks/demo2/README
+    - file: notebooks/demo2/pdf_text_extraction
+    - file: notebooks/demo2/infer_relevance
+    - file: notebooks/demo2/infer_kpi
+    - file: notebooks/demo2/create_results_table
