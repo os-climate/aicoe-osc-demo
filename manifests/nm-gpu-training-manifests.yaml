@@ -1,0 +1,375 @@
+apiVersion: v1
+items:
+- kind: ImageStream
+  apiVersion: image.openshift.io/v1
+  metadata:
+    name: "nvidia-cuda-11.0.3"
+    labels:
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+    - name: latest
+      from:
+        kind: DockerImage
+        name: 'nvcr.io/nvidia/cuda:11.0.3-cudnn8-devel-ubi8'
+      importPolicy: {}
+      referencePolicy:
+        type: Source
+- kind: ImageStream
+  apiVersion: image.openshift.io/v1
+  metadata:
+    name: "11.0.3-cuda-s2i-core-ubi8"
+    labels:
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+      - name: latest
+        importPolicy: {}
+        referencePolicy:
+          type: Local
+- kind: ImageStream
+  apiVersion: image.openshift.io/v1
+  metadata:
+    name: "11.0.3-cuda-s2i-base-ubi8"
+    labels:
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+      - name: latest
+        annotations: null
+        generation: 1
+        importPolicy: {}
+        referencePolicy:
+          type: Local
+- kind: ImageStream
+  apiVersion: image.openshift.io/v1
+  metadata:
+    name: "11.0.3-cuda-s2i-py38-ubi8"
+    labels:
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+      - name: latest
+        importPolicy: {}
+        referencePolicy:
+          type: Local
+- kind: ImageStream
+  apiVersion: image.openshift.io/v1
+  metadata:
+    name: "11.0.3-cuda-s2i-thoth-ubi8-py38"
+    labels:
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+      - name: latest
+        importPolicy: {}
+        referencePolicy:
+          type: Local
+- kind: ImageStream
+  apiVersion: image.openshift.io/v1
+  metadata:
+    labels:
+      component.opendatahub.io/name: jupyterhub
+      opendatahub.io/component: 'true'
+      os-climate/buildchain: cuda-11.0.3
+    annotations:
+      opendatahub.io/notebook-image-url: "https://github.com/thoth-station/s2i-minimal-notebook"
+      opendatahub.io/notebook-image-name: "CUDA"
+      opendatahub.io/notebook-image-desc: "Jupyter notebook image with GPU support and minimal dependency set to start experimenting with Jupyter environment."
+    name: "minimal-gpu"
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+    - annotations:
+        opendatahub.io/notebook-software: '[{"name":"Python","version":"v3.8.6"},{"name":"CUDA","version":"11.0.3"}]'
+        opendatahub.io/notebook-python-dependencies: '[{"name":"JupyterLab","version":"3.0.14"},{"name":"Notebook","version":"6.3.0"}]'
+      name: "py3.8-cuda-11.0.3"
+      referencePolicy:
+        type: Local
+- kind: ImageStream
+  apiVersion: image.openshift.io/v1
+  metadata:
+    labels:
+      component.opendatahub.io/name: jupyterhub
+      opendatahub.io/component: 'true'
+      opendatahub.io/notebook-image: 'true'
+      os-climate/buildchain: cuda-11.0.3
+    annotations:
+      opendatahub.io/notebook-image-url: "https://github.com/os-climate/neural-magic-notebook"
+      opendatahub.io/notebook-image-name: "Neural Magic"
+      opendatahub.io/notebook-image-desc: "Jupyter notebook image with Neural Magic and PyTorch libraries and dependencies to train sparsified models with advanced AI/ML notebooks."
+    name: "neural-magic"
+  spec:
+    lookupPolicy:
+      local: true
+    tags:
+    - annotations:
+        opendatahub.io/notebook-software: '[{"name":"Python","version":"v3.8.6"},{"name":"PyTorch","version":"==1.8.1"},{"name":"CUDA","version":"11.0.3"},{"name":"sparseml","version":"0.10.1"}]'
+        opendatahub.io/notebook-python-dependencies: '[{"name":"PyTorch","version":"1.8"},{"name":"Tensorboard","version":"1.15"},{"name":"Boto3","version":"1.17"},{"name":"Matplotlib","version":"3.4"},{"name":"Numpy","version":"1.19"},{"name":"Pandas","version":"1.2"}]'
+      name: "py3.8-cuda-11.0.3-1"
+      referencePolicy:
+        type: Local
+
+- kind: BuildConfig
+  apiVersion: build.openshift.io/v1
+  metadata:
+    name: "11.0.3-cuda-s2i-core-ubi8"
+    labels:
+      opendatahub.io/build_type: "base_image"
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: '11.0.3-cuda-s2i-core-ubi8:latest'
+    resources:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
+    completionDeadlineSeconds: 1800
+    successfulBuildsHistoryLimit: 1
+    failedBuildsHistoryLimit: 1
+    strategy:
+      type: Docker
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: 'nvidia-cuda-11.0.3:latest'
+        noCache: true
+        dockerfilePath: Dockerfile.rhel8
+    postCommit: {}
+    source:
+      type: Git
+      git:
+        uri: "https://github.com/sclorg/s2i-base-container"
+        ref: "d777ab3"
+      contextDir: "core/"
+    triggers:
+      - type: ImageChange
+        imageChange: {}
+    runPolicy: SerialLatestOnly
+- kind: BuildConfig
+  apiVersion: build.openshift.io/v1
+  metadata:
+    name: "11.0.3-cuda-s2i-base-ubi8"
+    labels:
+      opendatahub.io/build_type: "base_image"
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: '11.0.3-cuda-s2i-base-ubi8:latest'
+    resources:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
+    completionDeadlineSeconds: 1800
+    successfulBuildsHistoryLimit: 1
+    failedBuildsHistoryLimit: 1
+    strategy:
+      type: Docker
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: '11.0.3-cuda-s2i-core-ubi8:latest'
+        noCache: true
+        dockerfilePath: Dockerfile.rhel8
+    postCommit: {}
+    source:
+      type: Git
+      git:
+        uri: "https://github.com/sclorg/s2i-base-container"
+        ref: "d777ab3"
+      contextDir: "base/"
+    triggers:
+      - type: ImageChange
+        imageChange: {}
+    runPolicy: SerialLatestOnly
+- kind: BuildConfig
+  apiVersion: build.openshift.io/v1
+  metadata:
+    name: "11.0.3-cuda-s2i-py38-ubi8"
+    labels:
+      opendatahub.io/build_type: "base_image"
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: '11.0.3-cuda-s2i-py38-ubi8:latest'
+    resources:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
+    completionDeadlineSeconds: 1800
+    successfulBuildsHistoryLimit: 1
+    failedBuildsHistoryLimit: 1
+    strategy:
+      type: Docker
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: '11.0.3-cuda-s2i-base-ubi8:latest'
+        noCache: true
+        dockerfilePath: Dockerfile.rhel8
+    postCommit: {}
+    source:
+      type: Git
+      git:
+        uri: "https://github.com/sclorg/s2i-python-container"
+        ref: "4d85c35"
+      contextDir: "3.8/"
+    triggers:
+      - type: ImageChange
+        imageChange: {}
+    runPolicy: SerialLatestOnly
+- kind: BuildConfig
+  apiVersion: build.openshift.io/v1
+  metadata:
+    name: "11.0.3-cuda-s2i-thoth-ubi8-py38"
+    labels:
+      opendatahub.io/build_type: "base_image"
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: '11.0.3-cuda-s2i-thoth-ubi8-py38:latest'
+    resources:
+      limits:
+        cpu: "2"
+        memory: 4Gi
+      requests:
+        cpu: "2"
+        memory: 4Gi
+    completionDeadlineSeconds: 1800
+    successfulBuildsHistoryLimit: 1
+    failedBuildsHistoryLimit: 1
+    strategy:
+      type: Docker
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: '11.0.3-cuda-s2i-py38-ubi8:latest'
+        noCache: true
+        dockerfilePath: ubi8-py38/Dockerfile
+    postCommit: {}
+    source:
+      type: Git
+      git:
+        uri: "https://github.com/thoth-station/s2i-thoth"
+        ref: "v0.28.0"
+      contextDir: "ubi8-py38/"
+    triggers:
+      - type: ImageChange
+        imageChange: {}
+    runPolicy: SerialLatestOnly
+- kind: BuildConfig
+  apiVersion: build.openshift.io/v1
+  metadata:
+    name: s2i-minimal-gpu-cuda-11.0.3-notebook
+    labels:
+      opendatahub.io/build_type: "notebook_image"
+      opendatahub.io/notebook-name: "CUDA"
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: 'minimal-gpu:py3.8-cuda-11.0.3'
+    resources:
+      limits:
+        cpu: "4"
+        memory: 8Gi
+      requests:
+        cpu: "4"
+        memory: 8Gi
+    completionDeadlineSeconds: 1800
+    successfulBuildsHistoryLimit: 1
+    failedBuildsHistoryLimit: 1
+    strategy:
+      type: Docker
+      dockerStrategy:
+        from:
+          kind: ImageStreamTag
+          name: '11.0.3-cuda-s2i-thoth-ubi8-py38:latest'
+        noCache: true
+        dockerfilePath: Dockerfile
+    postCommit: {}
+    source:
+      type: Git
+      git:
+        ref: python38
+        uri: 'https://github.com/thoth-station/s2i-minimal-notebook'
+    triggers:
+      - type: ImageChange
+        imageChange: {}
+    runPolicy: SerialLatestOnly
+- kind: BuildConfig
+  apiVersion: build.openshift.io/v1
+  metadata:
+    name: neural-magic-gpu-cuda-11.0.3-notebook
+    labels:
+      opendatahub.io/build_type: "notebook_image"
+      opendatahub.io/notebook-name: "Neural Magic"
+      os-climate/buildchain: cuda-11.0.3
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: 'neural-magic:py3.8-cuda-11.0.3-1'
+    resources:
+      limits:
+        cpu: "4"
+        memory: 8Gi
+      requests:
+        cpu: "4"
+        memory: 8Gi
+    completionDeadlineSeconds: 1800
+    successfulBuildsHistoryLimit: 1
+    failedBuildsHistoryLimit: 1
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: 'minimal-gpu:py3.8-cuda-11.0.3'
+    postCommit: {}
+    source:
+      type: Git
+      git:
+        ref: python38
+        uri: 'https://github.com/os-climate/neural-magic-notebook'
+    triggers:
+      - type: ImageChange
+        imageChange: {}
+    runPolicy: SerialLatestOnly
+kind: List
+metadata: {}
