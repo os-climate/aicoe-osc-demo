@@ -22,7 +22,7 @@ s3c = S3Communication(
 
 # Read kpi mapping csv from s3
 df = s3c.download_df_from_s3(
-    "corpdata/ESG/kpi_mapping",
+    "aicoe-osc-demo/kpi_mapping",
     "kpi_mapping.csv",
     filetype=S3FileType.CSV,
     header=0,
