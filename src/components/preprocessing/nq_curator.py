@@ -1,3 +1,6 @@
+"""Processing nq curator."""
+
+
 import logging
 import os
 from ast import literal_eval
@@ -19,16 +22,18 @@ logger = logging.getLogger(__name__)
 
 
 class NQCurator(BaseComponent):
-    """Component that creates balanced datasets for text and table data from the extracted NQ data
+    """NQCurator class.
+
+    Component that creates balanced datasets for text and table data from the extracted NQ data.
+
     Args:
         input_dir(str): The directory where the extracted CSVs are located.
         output_dir(str): The directory where the curated CSVs will be saved.
         extract_text(bool): Set to True to curate the table data
         extract_tables(bool): Set to True to curate the text data
         negative_from_other_docs(bool): If set to True, the negative examples are sampled from paragraphs from
-         the same document from which the positive examples are taken from. If False, they will be sampled from
-         other documents.
-
+            the same document from which the positive examples are taken from. If False, they will be sampled from
+            other documents.
     """
 
     def __init__(
@@ -40,6 +45,7 @@ class NQCurator(BaseComponent):
         negative_from_other_docs=True,
         name="NQCurator",
     ):
+        """Initialize NQCurator class."""
         super().__init__(name)
         self._input_dir = input_dir
         self._output_dir = output_dir
@@ -49,7 +55,10 @@ class NQCurator(BaseComponent):
 
     @staticmethod
     def _extract_paragraphs(df):
-        """Extracts the content of the relevant and candidate answer paragraphs from the token start and end indices
+        """Extract the content of the relevant and candidate answer paragraphs.
+
+        It extracts the content of the relevant and candidate answer paragraphs
+        from the token start and end indices from the token start and end indices.
         Args:
             df(Pandas dataframe): The input dataframe.
         Returns:
@@ -94,9 +103,8 @@ class NQCurator(BaseComponent):
 
     @staticmethod
     def create_relevance_dataset(input_df):
-        """
-        Process NQ dataset to get both a text dataset and a table dataset to train a
-         relevance classifier
+        """Process NQ dataset to get both a text dataset and a table dataset to train a relevance classifier.
+
         Args:
              input_df (dataframe): original NQ dataset loaded using jsonl_to_df
         Returns:
@@ -105,7 +113,6 @@ class NQCurator(BaseComponent):
             df_table (dataframe): A dataframe containing the questions, positive and negative table examples,
              and labels
         """
-
         # Create dataframe with only question, text and label
         logger.info("Creating relevance dataframe")
         all_data = [
@@ -153,16 +160,14 @@ class NQCurator(BaseComponent):
         return df_text, df_table
 
     def _build_balanced_dataset(self, df):
-        """
-        Select negative samples to build a balanced NQ relevance dataset and save it
-        to csv
+        """Select negative samples to build a balanced NQ relevance dataset and save it to csv.
+
         Args:
         df (dataframe): Processed NQ data with text only or table only data
         (output of to_relevance_dataset() method)
         Returns:
             balanced_dataset (dataframe)
         """
-
         # Get positive samples
         positive_samples = df.loc[df.label == 1].reset_index(drop=True)
         # Get negative candidates
@@ -192,7 +197,10 @@ class NQCurator(BaseComponent):
         return balanced_dataset
 
     def _run(self, df_path):
-        """The run method for a single chunk of data. Will curate a text and a table dataset from the `df_path`
+        """Curate a text and a table dataset from the `df_path`.
+
+        The run method for a single chunk of data.
+
         Args:
             df_path(str): Path to the CSV where the chunk of parsed data is saved at
         Returns:
@@ -215,7 +223,10 @@ class NQCurator(BaseComponent):
         return df_text_balanced, df_table_balanced
 
     def run(self):
-        """Loads all the extracted CSVs, and processes them one by one, curating a text and a table dataset from each
+        """Load all the extracted CSVs and processe them one by one.
+
+        For each curating a text and a table dataset.
+
         The datasets are then aggregated and saved as CSV.
         """
         logger.info("Running the Curation stage")

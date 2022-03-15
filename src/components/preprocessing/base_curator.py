@@ -1,3 +1,6 @@
+"""BaseCurator."""
+
+
 import re
 from abc import abstractmethod
 
@@ -7,25 +10,30 @@ from .base_component import BaseComponent
 # Remember to also implement BaseComponent's abstract methods for child classes
 # of this class
 class BaseCurator(BaseComponent):
+    """Base Curator class."""
+
     def __init__(self, name="BaseCurator"):
+        """Initialize BaseCurator class."""
         self.name = name
 
     @abstractmethod
     def process_single_annotation_file(self, annotation_filepath, *args, **kwargs):
+        """Process single annotation file."""
         pass
 
     @abstractmethod
     def create_pos_examples(self, row, *args, **kwargs):
+        """Create POS examples."""
         pass
 
     @abstractmethod
     def create_negative_examples(self, row, *args, **kwargs):
+        """Create negative examples."""
         pass
 
     @staticmethod
     def clean_text(text):
-        """
-        Clean text
+        """Clean text.
 
         Args:
             text (A str)

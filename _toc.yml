@@ -1,7 +1,7 @@
 format: jb-book
 root: README
 parts:
-  - caption: Demo 1 - ETL & Dashboarding 
+  - caption: Demo 1 - ETL & Dashboarding
     chapters:
     - file: notebooks/demo1/README
     - file: notebooks/demo1/demo1-create-tables

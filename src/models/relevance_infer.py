@@ -1,3 +1,6 @@
+"""RelevanceInfer."""
+
+
 import json
 import logging
 import os
@@ -16,14 +19,18 @@ _logger = logging.getLogger(__name__)
 
 
 class BaseRelevanceInfer(ABC):
-    """ An abstract base class for predicting relevant data for given question(s).
+    """BaseRelevanceInfer class.
+
+    An abstract base class for predicting relevant data for given question(s).
     The `run_folder` is the main method for this
     class and its children.
 
     Args:
-        infer_config: An instance of model_pipeline.config.InferConfig class"""
+        infer_config: An instance of model_pipeline.config.InferConfig class
+    """
 
     def __init__(self, infer_config):
+        """Initialize BaseRelevanceInfer class."""
         self.infer_config = infer_config
         self.data_type = self._get_data_type()
         importlib.reload(kpi_mapping)
@@ -34,40 +41,52 @@ class BaseRelevanceInfer(ABC):
         else:
             # Filter KPIs based on section and whether they can be found in text or table.
             self.questions = [
-                q_text		  
+                q_text
                 for q_id, (q_text, sect) in kpi_mapping.KPI_MAPPING_MODEL.items()
-                if len(set(sect).intersection(set(self.infer_config.sectors))) > 0 and self.data_type.upper() in kpi_mapping.KPI_CATEGORY[q_id]
+                if len(set(sect).intersection(set(self.infer_config.sectors))) > 0
+                and self.data_type.upper() in kpi_mapping.KPI_CATEGORY[q_id]
             ]
 
         self.result_dir = self.infer_config.result_dir[self.data_type]
         if not os.path.exists(self.result_dir):
             os.makedirs(self.result_dir)
 
-        farm_logger = logging.getLogger('farm')
+        farm_logger = logging.getLogger("farm")
         farm_logger.setLevel(self.infer_config.farm_infer_logging_level)
         self.model = Inferencer.load(
             self.infer_config.load_dir[self.data_type],
             batch_size=self.infer_config.batch_size,
             gpu=self.infer_config.gpu,
             num_processes=self.infer_config.num_processes,
-            disable_tqdm=self.infer_config.disable_tqdm
+            disable_tqdm=self.infer_config.disable_tqdm,
         )
 
     def run_folder(self):
-        """The method is responsible for making prediction on all the data
-        (csv files or json) inside a folder and save the relevant tables or
+        """Make prediction on all the data (csv files or json) inside a folder.
+
+        It also saves the relevant tables or
         paragraphs for questions inside a csv file.
         """
         all_text_path_dict = self._gather_extracted_files()
         df_list = []
         num_pdfs = len(all_text_path_dict)
-        _logger.info("{} Starting Relevence Inference for the following extracted pdf files found in {}:\n{} ".
-                     format("#" * 20, self.result_dir, [pdf for pdf in all_text_path_dict.keys()]))
+        _logger.info(
+            "{} Starting Relevence Inference for the following extracted pdf files found in {}:\n{} ".format(
+                "#" * 20, self.result_dir, [pdf for pdf in all_text_path_dict.keys()]
+            )
+        )
         for i, (pdf_name, file_path) in enumerate(all_text_path_dict.items()):
-            _logger.info("{} {}/{} PDFs".format("#" * 20, i+1, num_pdfs))
+            _logger.info("{} {}/{} PDFs".format("#" * 20, i + 1, num_pdfs))
             predictions_file_name = "{}_{}".format(pdf_name, "predictions_relevant.csv")
-            if self.infer_config.skip_processed_files and predictions_file_name in os.listdir(self.result_dir):
-                _logger.info("The relevance infer results for {} already exists. Skipping.".format(pdf_name))
+            if (
+                self.infer_config.skip_processed_files
+                and predictions_file_name in os.listdir(self.result_dir)
+            ):
+                _logger.info(
+                    "The relevance infer results for {} already exists. Skipping.".format(
+                        pdf_name
+                    )
+                )
                 _logger.info(
                     "If you would like to re-process the already processed files, set "
                     "`skip_processed_files` to False in the config file. "
@@ -82,8 +101,12 @@ class BaseRelevanceInfer(ABC):
                 chunk_size = 1000
                 chunk_idx = 0
                 while chunk_idx * chunk_size < num_data_points:
-                    data_chunk = data[chunk_idx * chunk_size: (chunk_idx + 1) * chunk_size]
-                    predictions_chunk = self.model.inference_from_dicts(dicts=data_chunk)
+                    data_chunk = data[
+                        chunk_idx * chunk_size : (chunk_idx + 1) * chunk_size
+                    ]
+                    predictions_chunk = self.model.inference_from_dicts(
+                        dicts=data_chunk
+                    )
                     predictions.extend(predictions_chunk)
                     chunk_idx += 1
                 flat_predictions = [
@@ -100,7 +123,6 @@ class BaseRelevanceInfer(ABC):
                 df_list.append(df)
                 predictions_file_path = os.path.join(
                     self.result_dir, predictions_file_name
-
                 )
                 df.to_csv(predictions_file_path)
                 _logger.info(
@@ -108,9 +130,14 @@ class BaseRelevanceInfer(ABC):
                         len(df), self.data_type, pdf_name, predictions_file_path
                     )
                 )
-            except:
+            except Exception as exc:
+                _logger.warning(exc)
                 e = sys.exc_info()[0]
-                _logger.warning("There was an error making inference (RELEVANCE) on {}".format(pdf_name))
+                _logger.warning(
+                    "There was an error making inference (RELEVANCE) on {}".format(
+                        pdf_name
+                    )
+                )
                 _logger.warning("The error is\n{}\nSkipping this pdf".format(e))
 
         concatenated_dfs = pd.concat(df_list) if len(df_list) > 0 else pd.DataFrame()
@@ -124,7 +151,9 @@ class BaseRelevanceInfer(ABC):
 
     @abstractmethod
     def _gather_data(self):
-        """An abstract method provided by the child class. This method is
+        """Get all the data inside a folder and retun a list of examples.
+
+        An abstract method provided by the child class. This method is
         responsible for getting all the data inside a folder and returning a list
         of examples for text-pair classification. Therefore, each example must
         have "text" and "text_b" keys.
@@ -137,20 +166,23 @@ class BaseRelevanceInfer(ABC):
 
 
 class TableRelevanceInfer(BaseRelevanceInfer):
-    """This class is responsible for finding relevant tables to given questions.
+    """TableRelevanceInfer class.
+
+    This class is responsible for finding relevant tables to given questions.
     Args:
         infer_config (obj of model_pipeline.config.InferConfig)
-        """
+    """
 
     def __init__(self, infer_config):
+        """Initialize TableRelevanceInfer class."""
         super(TableRelevanceInfer, self).__init__(infer_config)
 
     def _get_data_type(self):
         return "Table"
 
     def _gather_extracted_files(self):
-        """
-        Gathers all the extracted tables saved as CSV files for each pdf
+        """Gather all the extracted tables saved as CSV files for each pdf.
+
         Returns:
             table_paths_dicts(dict): A dictionary where the keys are the pdf names and the values are list of
             CSV paths for each pdf
@@ -166,7 +198,8 @@ class TableRelevanceInfer(BaseRelevanceInfer):
         return table_paths_dicts
 
     def _gather_data(self, pdf_name, table_paths):
-        """ Gathers all the table data for the given pdf and prepares them to be passed to pass to table model
+        """Gather all the table data for the given pdf and prepares them to be passed to pass to table model.
+
         Args:
             pdf_name (str): Name of the pdf
             pdf_path (str): Path to the pdf
@@ -208,7 +241,8 @@ class TableRelevanceInfer(BaseRelevanceInfer):
 
     @staticmethod
     def gather_text_from_table(file):
-        """Extract all the text inside a csv file
+        """Extract all the text inside a csv file.
+
         Args:
             file (str): Path to a csv file
         Return:
@@ -221,27 +255,30 @@ class TableRelevanceInfer(BaseRelevanceInfer):
             column_proces = table[column].dropna().astype(str)
             numbers = column_proces.str.findall(r"^\W*[0-9]*\W?[0-9]*?\W*$")
             not_numbers = numbers.apply(lambda x: False if len(x) > 0 else True)
-            not_numbers_idx = not_numbers[not_numbers == True].index
+            not_numbers_idx = not_numbers[not_numbers == True].index  # noqa: E712
             column_text = [text for text in column_proces[not_numbers_idx]]
             text += column_text
         return ", ".join(text)
 
 
 class TextRelevanceInfer(BaseRelevanceInfer):
-    """This class is responsible for finding relevant texts to given questions.
-        Args:
-            infer_config (obj of model_pipeline.config.InferConfig)
+    """TextRelevanceInfer class.
+
+    This class is responsible for finding relevant texts to given questions.
+    Args:
+        infer_config (obj of model_pipeline.config.InferConfig)
     """
 
     def __init__(self, infer_config):
+        """Initialize TextRelevanceInfer class."""
         super(TextRelevanceInfer, self).__init__(infer_config)
 
     def _get_data_type(self):
         return "Text"
 
     def _gather_extracted_files(self):
-        """
-        Gathers all the extracted texts for each pdf
+        """Gather all the extracted texts for each pdf.
+
         Returns:
             A dictionary where the keys are the pdf names and the values are the path to the json files containing
             the extracted text for each pdf
@@ -255,7 +292,8 @@ class TextRelevanceInfer(BaseRelevanceInfer):
         }
 
     def _gather_data(self, pdf_name, pdf_path):
-        """ Gathers all the text data inside the given pdf and prepares it to be passed to text model
+        """Gather all the text data inside the given pdf and prepares it to be passed to text model.
+
         Args:
             pdf_name (str): Name of the pdf
             pdf_path (str): Path to the pdf
@@ -292,12 +330,13 @@ class TextRelevanceInfer(BaseRelevanceInfer):
 
     @staticmethod
     def read_text_from_json(file):
+        """Read text from json."""
         with open(file) as f:
             text = json.load(f)
             return text
 
     def run_text(self, input_text, input_question):
-        """ A method to make prediction on relevancy of a input_text and input_questions"""
+        """Make prediction on relevancy of a input_text and input_questions."""
         basic_texts = [
             {"text": input_question, "text_b": input_text},
         ]

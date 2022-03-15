@@ -1,3 +1,6 @@
+"""Extractor class."""
+
+
 from .pdf_table_extractor import PDFTableExtractor
 from .pdf_text_extractor import PDFTextExtractor
 import logging
@@ -10,8 +13,11 @@ NAME_CLASS_MAPPING = {
 
 
 class Extractor:
+    """Extractor class."""
+
     def __init__(self, extractors):
-        """
+        """Combine different types of extractors.
+
         A pipeline extractor which combines different types of extractors
 
         Args:
@@ -20,7 +26,7 @@ class Extractor:
         self.extractors = self.__create_extractors(extractors)
 
     def __create_extractors(self, extractors):
-        """Returns a list of extractors objects
+        """Return a list of extractors objects.
 
         Args:
             extractors (A list of str)
@@ -37,8 +43,7 @@ class Extractor:
         return list_ext
 
     def run(self, input_filepath, output_folder):
-        """
-        Extract a single file
+        """Extract a single file.
 
         Args:
             input_filepath (str): Input file path
@@ -51,8 +56,8 @@ class Extractor:
             _ = ext.run(input_filepath, output_folder)
 
     def run_folder(self, input_folder, output_folder):
-        """
-        Extract for all files mentioned in folder.
+        """Extract for all files mentioned in folder.
+
         (The logic is based on each child.)
 
         Args:

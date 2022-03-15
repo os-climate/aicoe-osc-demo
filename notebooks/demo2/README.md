@@ -28,9 +28,9 @@ You can also use AICoE-CI to enable other Thoth services such as pre-commit chec
 ![Spawn JupyterHub](../../docs/assets/demo1-spawn-jupyter.png)
 
 
-## Data Preprocessing 
+## Data Preprocessing
 
-Now let’s look at how we process raw data and prepare it for model training. 
+Now let’s look at how we process raw data and prepare it for model training.
 The source code for preprocessing is available in the `src` directory preinstalled in the JupyterHub image. This directory follows the project structure laid out in the [aicoe-aiops project template](https://github.com/aicoe-aiops/project-template).
 
 * Extraction
@@ -41,9 +41,9 @@ The source code for preprocessing is available in the `src` directory preinstall
 
 * Curation
 
-    * In the text and table curation notebook, we will load the json files (one per pdf) and the corresponding csv files from the s3 bucket, and then add labels to it. For each text extract or table, we will assign label "1" to the correct corresponding text, and label "0" to a randomly selected text that does not correspond to the table. 
+    * In the text and table curation notebook, we will load the json files (one per pdf) and the corresponding csv files from the s3 bucket, and then add labels to it. For each text extract or table, we will assign label "1" to the correct corresponding text, and label "0" to a randomly selected text that does not correspond to the table.
 
-## Inference 
+## Inference
 
 * Infer relevance
     * The infer relevance notebook takes in extracted text from the preprocessing stage and for a predefined set of KPI questions, finds relevant paragraphs from the text. These paragraphs are then used to find the exact answers to the questions. The notebook uses a fine-tuned language model stored on s3. The output prediction csv files are saved back on s3.
@@ -51,10 +51,10 @@ The source code for preprocessing is available in the `src` directory preinstall
 * Infer KPI
     * The infer kpi notebook takes in the results from the infer relevance stage and for the predefined set of KPI questions, it finds the exact answers from the relevant paragraphs. The notebook uses a fine-tuned language model stored on s3. The output prediction csv files are saved back on s3.
 
-## Trino 
+## Trino
 
 * Results table
-    * The create results table notebook takes the prediction output csv from infer KPI step and creates a Trino SQL table that can be used for querying and visualization in Superset. 
+    * The create results table notebook takes the prediction output csv from infer KPI step and creates a Trino SQL table that can be used for querying and visualization in Superset.
 
 ## Elyra pipeline
 
@@ -68,4 +68,3 @@ The source code for preprocessing is available in the `src` directory preinstall
 ## Superset Visualization
 
 * The Superset dashboard is the final step of demo 2. The automated Elyra inference pipeline answers KPI questions from raw pdfs and stores the results in the Trino table. The dashboard queries the table according to user selected filters and shows the answers. To interact with the results, find the [dashboard here](https://superset-secure-odh-superset.apps.odh-cl1.apps.os-climate.org/superset/dashboard/15).
-

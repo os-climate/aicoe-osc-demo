@@ -1,3 +1,6 @@
+"""Cscdtabnet checkpoint URLs."""
+
+
 checkpoint_url = {
     "general_model.pth": "https://drive.google.com/uc?id=1-xfq5hDmFdKgbY9FSFTmhSlcb2p13RPn",
     "icdar_13.pth": "https://drive.google.com/uc?id=1-mVr4UBicFk3mjUz5tsVPjQ4jzRtiT7V",

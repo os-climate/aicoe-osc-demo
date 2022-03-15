@@ -1,3 +1,6 @@
+"""NQExtractor."""
+
+
 import json
 import logging
 import os
@@ -11,7 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 class NQExtractor(BaseComponent):
-    """
+    """NQExtractor Class.
+
     The component to load the .jsonl files into a dataframe in chunks, extract the long answer candidates, and save
     each chunk as a CSV.
     Args:
@@ -31,6 +35,7 @@ class NQExtractor(BaseComponent):
         chunk_size=10000,
         name="NQExtractor",
     ):
+        """Initialize NQExtractor class."""
         super().__init__(name)
         self._raw_nq_json_file = raw_nq_json_file
         self._out_dir = out_dir
@@ -39,14 +44,15 @@ class NQExtractor(BaseComponent):
         self._chunk_size = chunk_size
 
     def _write_chunk_to_disk(self, chunk_data, chunk_idx):
-        """Helper function to save a chunk of data to a CSV file"""
+        """Save a chunk of data to a CSV file (Helper function)."""
         df = pd.DataFrame(chunk_data).fillna(-1)
         output_path = os.path.join(self._out_dir, "Parsed_NQ_{}.csv".format(chunk_idx))
         df.to_csv(output_path)
 
     def run(self):
-        """
-        Simple utility function to load the .jsonl files into a dataframe, and ex-
+        """Load .json files into a df and extract long answer candidates.
+
+        Simple utility function to load the .json files into a dataframe, and ex-
         tract long answer candidates
         Returns:
             A Dataframe containing the following columns:
