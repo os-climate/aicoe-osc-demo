@@ -1,3 +1,5 @@
+"""TableCurator."""
+
 import logging
 import os
 import random
@@ -15,6 +17,8 @@ logger = logging.getLogger(__name__)
 
 
 class TableCurator(BaseCurator):
+    """TableCurator class."""
+
     def __init__(
         self,
         neg_pos_ratio,
@@ -25,7 +29,9 @@ class TableCurator(BaseCurator):
         name="DataTableCurator",
         data_type="TABLE",
     ):
-        """This class is the responsible for creating ESG table dataset
+        """Initialize TableCurator class.
+
+        This class is the responsible for creating ESG table dataset
             (positive and negative examples) based on the annotations.
         Args:
             neg_pos_ratio (int): Ratio between negative to positive samples.
@@ -45,8 +51,9 @@ class TableCurator(BaseCurator):
         random.seed(seed)
 
     def run(self, extraction_folder, annotation_excels, output_folder):
-        """This is the main method for creating ESG table dataset. It saves
-            all examples in a csv.
+        """Create ESG table dataset.
+
+        It saves all examples in a csv.
 
         Args:
             extraction_folder (str): Path to the extraction folder. In the
@@ -83,7 +90,8 @@ class TableCurator(BaseCurator):
         )
 
     def create_pos_examples(self, row, tables_samepdf):
-        """
+        """Create POS examples.
+
         Args:
             row (A pandas.Series)
             tables_samepdf (A dict): Key= Page number (A str), value = A list of
@@ -118,7 +126,8 @@ class TableCurator(BaseCurator):
         return multi_examples
 
     def create_negative_examples(self, row, pos_filename, tables_samepdf):
-        """
+        """Create negative examples.
+
         Args:
             row (A pandas.Series)
             pos_filename (A str): File name of positive table
@@ -158,7 +167,8 @@ class TableCurator(BaseCurator):
         return examples
 
     def find_relevant_table(self, answer, source_page, tables_samepdf):
-        """
+        """Find relevant table.
+
         Args:
             answer (A str)
             source_page (A str): E.g. "21"
@@ -181,7 +191,8 @@ class TableCurator(BaseCurator):
         return related_tables[np.argmax(scores)]
 
     def __obtain_filename_to_strarr(self):
-        """
+        """Obtain filename.
+
         Returns:
             filename_to_stringarr(a dictionary): Key = table csv
                 path (str), value = a list of strings in the table
@@ -201,12 +212,14 @@ class TableCurator(BaseCurator):
         return filename_to_stringarr
 
     def __clean_annotation_file(self, df, annotation_filepath):
-        """Returns a clean dataframe after dropping all NaN rows,
-            dropping rows which has NaN values in some of the columns
-            (refer below), filter by TABLE and exclude certain companies,
-            mapping kpi id to question and remove rows with invalid kpi id,
-            cleaning source_page to get a list of str removing rows with invalid
-            source_page, finally adding annotator's name.
+        """Clean annotation file.
+
+        Returns a clean dataframe after dropping all NaN rows,
+        dropping rows which has NaN values in some of the columns
+        (refer below), filter by TABLE and exclude certain companies,
+        mapping kpi id to question and remove rows with invalid kpi id,
+        cleaning source_page to get a list of str removing rows with invalid
+        source_page, finally adding annotator's name.
 
         Args:
             df (A dataframe)
@@ -314,7 +327,9 @@ class TableCurator(BaseCurator):
         return df
 
     def __create_table_meta(self):
-        """Returns a dictionary of key = pdf file name, value = a dictionary
+        """Create table_meta.
+
+        Returns a dictionary of key = pdf file name, value = a dictionary
             where key = page num, value = a list of table csvs from that page
 
         Returns:
@@ -343,7 +358,8 @@ class TableCurator(BaseCurator):
     def process_single_annotation_file(
         self, annotation_filepath, sheet_name="data_ex_in_xls"
     ):
-        """Create examples for a single excel file
+        """Create examples for a single excel file.
+
         Args:
             annotation_filepath (str): Path to the annotated excel file
             sheet_name (A str): Sheet which contains data

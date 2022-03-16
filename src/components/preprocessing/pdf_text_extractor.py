@@ -1,3 +1,6 @@
+"""PDFTextExtractor."""
+
+
 import glob
 import io
 import json
@@ -20,7 +23,9 @@ _logger = logging.getLogger(__name__)
 
 
 class PDFTextExtractor(BaseComponent):
-    """This Class is responsible for extracting text data from PDFs and saving
+    """PDFTextExtractor class.
+
+    This Class is responsible for extracting text data from PDFs and saving
         the result in a json format file.
         Each name/value pair in the json file refers to page_number and
         the list of paragraphs in that page.
@@ -41,13 +46,17 @@ class PDFTextExtractor(BaseComponent):
         skip_extracted_files=False,
         name="PDFTextExtractor",
     ):
+        """Initialize PDFTextExtractor class."""
         super().__init__(name)
         self.min_paragraph_length = min_paragraph_length
         self.annotation_folder = annotation_folder
         self.skip_extracted_files = skip_extracted_files
 
     def process_page(self, input_text):
-        """This function receives a text following:
+        r"""Process page.
+
+        This function receives a text following:
+
         1. Divide it into  paragraphs, using \n\n
         2. Remove table data: To achieve this, if number of alphabet characters of paragraph
             is less min_paragraph_length, it is considered as table cell and it will be removed.
@@ -70,7 +79,8 @@ class PDFTextExtractor(BaseComponent):
         return paragraphs
 
     def extract_pdf_by_page(self, pdf_file):
-        """Read the content of each page in a pdf file, this method uses pdfminer.
+        """Read the content of each page in a pdf file (this method uses pdfminer).
+
         Args:
             pdf_file (str): Path to the pdf file.
         Returns:
@@ -108,7 +118,8 @@ class PDFTextExtractor(BaseComponent):
         return pdf_content
 
     def run(self, input_filepath, output_folder):
-        """Extract text from a single pdf file
+        """Extract text from a single pdf file.
+
         Args:
             input_filepath (str or PosixPath): full path to the pdf file
             output_folder (str or PosixPath): Folder to save the result of extraction
@@ -140,8 +151,9 @@ class PDFTextExtractor(BaseComponent):
         return text_dict
 
     def run_folder(self, input_folder, output_folder):
-        """This method will perform pdf extraction for all the pdfs mentioned
-        as source in the annotated excel files
+        """Perform pdf extraction.
+
+        It is done for all the pdfs mentioned as source in the annotated excel files
         and it will be saved the results in a output_folder.
 
         Args:

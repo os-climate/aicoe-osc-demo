@@ -10,7 +10,7 @@ The following demos provide examples of how to use the tools available with [Ope
 * [Run SQL queries from a Jupyter Notebook environment](notebooks/demo1/demo1-join-tables.ipynb)
 * [Demo 1 Elyra Pipeline](https://github.com/os-climate/aicoe-osc-demo/blob/master/notebooks/demo1/demo1.pipeline)
 * [Results visualized on a Superset Dashboard](https://superset-secure-odh-superset.apps.odh-cl1.apps.os-climate.org/superset/dashboard/3/)
-* [Video on creating Elyra Pipelines and Superset Dashboard](https://youtu.be/TFgsR7UlcHA) 
+* [Video on creating Elyra Pipelines and Superset Dashboard](https://youtu.be/TFgsR7UlcHA)
 
 
 ## [Demo 2 - Automated Inference Pipeline and Dashboarding](notebooks/demo2/README.md)

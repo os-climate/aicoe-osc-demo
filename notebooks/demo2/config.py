@@ -1,7 +1,5 @@
 """Default runtime config."""
-import src
 import pathlib
-import torch
 import os
 
 # General config
@@ -9,7 +7,7 @@ STAGE = "extract"  # "extract" | "curate "
 SEED = 42
 
 if os.getenv("AUTOMATION"):
-    ROOT =  pathlib.Path("/opt/app-root")
+    ROOT = pathlib.Path("/opt/app-root")
 else:
     ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
 

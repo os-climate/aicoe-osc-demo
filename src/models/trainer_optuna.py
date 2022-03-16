@@ -1,3 +1,5 @@
+"""Trainer optuna."""
+
 from tqdm import tqdm
 from farm.train import Trainer
 from farm.eval import Evaluator
@@ -8,16 +10,20 @@ import optuna
 
 logger = logging.getLogger(__name__)
 
-class TrainerOptuna(Trainer):
-    def train(self, trial):
-        """
-        Perform the training procedure and allow optuna to stop the training if
-        accuracy of classification of downstream NLP task does not improve after
-        a number of iterations
-        """
 
+class TrainerOptuna(Trainer):
+    """Trainer Optuna."""
+
+    def train(self, trial):
+        """Perform the training procedure.
+
+        It allows optuna to stop the training if accuracy of classification of downstream NLP task
+        does not improve after a number of iterations.
+        """
         # connect the prediction heads with the right output from processor
-        self.model.connect_heads_with_processor(self.data_silo.processor.tasks, require_labels=True)
+        self.model.connect_heads_with_processor(
+            self.data_silo.processor.tasks, require_labels=True
+        )
 
         # Check that the tokenizer fits the language model
         self.model.verify_vocab_size(vocab_size=len(self.data_silo.processor.tokenizer))
@@ -42,26 +48,36 @@ class TrainerOptuna(Trainer):
                         resume_from_step = None
                     continue
 
-                progress_bar.set_description(f"Train epoch {epoch}/{self.epochs} (Cur. train loss: {loss:.4f})")
+                progress_bar.set_description(
+                    f"Train epoch {epoch}/{self.epochs} (Cur. train loss: {loss:.4f})"
+                )
 
                 # Move batch of samples to device
                 batch = {key: batch[key].to(self.device) for key in batch}
 
                 # Forward pass through model
                 logits = self.model.forward(**batch)
-                per_sample_loss = self.model.logits_to_loss(logits=logits, global_step=self.global_step, **batch)
+                per_sample_loss = self.model.logits_to_loss(
+                    logits=logits, global_step=self.global_step, **batch
+                )
 
                 loss = self.backward_propagate(per_sample_loss, step)
 
                 # Perform  evaluation
-                if self.evaluate_every != 0 and self.global_step % self.evaluate_every == 0 and self.global_step != 0:
+                if (
+                    self.evaluate_every != 0
+                    and self.global_step % self.evaluate_every == 0
+                    and self.global_step != 0
+                ):
                     # When using StreamingDataSilo, each evaluation creates a new instance of
                     # dev_data_loader. In cases like training from scratch, this could cause
                     # some variance across evaluators due to the randomness in word masking.
                     dev_data_loader = self.data_silo.get_data_loader("dev")
                     if dev_data_loader is not None:
                         evaluator_dev = Evaluator(
-                            data_loader=dev_data_loader, tasks=self.data_silo.processor.tasks, device=self.device
+                            data_loader=dev_data_loader,
+                            tasks=self.data_silo.processor.tasks,
+                            device=self.device,
                         )
                         evalnr += 1
                         result = evaluator_dev.eval(self.model)
@@ -75,7 +91,9 @@ class TrainerOptuna(Trainer):
 
                         # save the current state as a checkpoint before exiting if a SIGTERM signal is received
                 if self.sigterm_handler and self.sigterm_handler.kill_now:
-                    logger.info("Received a SIGTERM signal. Saving the current train state as a checkpoint ...")
+                    logger.info(
+                        "Received a SIGTERM signal. Saving the current train state as a checkpoint ..."
+                    )
                     self._save()
                     sys.exit(0)
 
@@ -93,10 +111,10 @@ class TrainerOptuna(Trainer):
         test_data_loader = self.data_silo.get_data_loader("test")
         if test_data_loader is not None:
             evaluator_test = Evaluator(
-                data_loader=test_data_loader, tasks=self.data_silo.processor.tasks, device=self.device
+                data_loader=test_data_loader,
+                tasks=self.data_silo.processor.tasks,
+                device=self.device,
             )
             result = evaluator_test.eval(self.model)
             evaluator_test.log_results(result, "Test", self.global_step)
         return self.model
-
-

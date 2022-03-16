@@ -1,3 +1,6 @@
+"""Pre processing methods."""
+
+
 from .base_component import BaseComponent  # noqa F401
 from .pdf_table_extractor import PDFTableExtractor  # noqa F401
 from .pdf_text_extractor import PDFTextExtractor  # noqa F401

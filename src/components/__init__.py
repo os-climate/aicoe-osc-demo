@@ -1,2 +1,11 @@
-from .preprocessing import Extractor, PDFTextExtractor, PDFTableExtractor, NQExtractor, \
-                        NQCurator, TextCurator, TableCurator
+"""Components."""
+
+from .preprocessing import (  # noqa F401
+    Extractor,
+    PDFTextExtractor,
+    PDFTableExtractor,
+    NQExtractor,
+    NQCurator,
+    TextCurator,
+    TableCurator,
+)

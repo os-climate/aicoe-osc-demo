@@ -1,3 +1,6 @@
+"""TextCurator."""
+
+
 import ast
 import json
 import logging
@@ -15,6 +18,8 @@ logger = logging.getLogger(__name__)
 
 
 class TextCurator(BaseCurator):
+    """TextCurator class."""
+
     def __init__(
         self,
         retrieve_paragraph,
@@ -27,7 +32,9 @@ class TextCurator(BaseCurator):
         name="DataTextCurator",
         data_type="TEXT",
     ):
-        """This class is the responsible for creating ESG text dataset
+        """Initialize TextCurator class.
+
+        This class is the responsible for creating ESG text dataset
         (positive and negative examples) based on the annotations.
         Args:
             retrieve_paragraph (bool): Whether or not try to extract the whole
@@ -53,7 +60,8 @@ class TextCurator(BaseCurator):
         random.seed(seed)
 
     def run(self, extraction_folder, annotation_excels, output_folder):
-        """This is the main method for creating ESG text dataset.
+        """Create ESG text dataset (main method).
+
         Args:
             extraction_folder (str): Path to the extraction folder. In the
             extraction phase pdf are read and saved as json files.
@@ -105,7 +113,8 @@ class TextCurator(BaseCurator):
     def process_single_annotation_file(
         self, annotation_filepath, sheet_name="data_ex_in_xls"
     ):
-        """Create examples for a single excel file
+        """Create examples for a single excel file.
+
         Args:
             annotation_filepath (str): Path to the annotated excel file
             sheet_name (A str): Sheet which contains data
@@ -142,7 +151,8 @@ class TextCurator(BaseCurator):
         return examples
 
     def create_pos_examples(self, row):
-        """Given each row of annotations, this method creates pos examples.
+        """Create pos examples (Given each row of annotations).
+
         Note: this method can extract the whole paragraph in the pdf where the
         relevant_paragraph is mentioned.
         For each row, there might be more than one positive examples if the
@@ -181,7 +191,9 @@ class TextCurator(BaseCurator):
         return pos_rows
 
     def create_negative_examples(self, row):
-        """Create negative examples for each row, to achieve this:
+        """Create negative examples for each row.
+
+        To achieve this:
         - If the source pdf is presented and extracted, we choose a random page,
           except source page and choose a random paragraph within that.
         - If the extracted pdf is not available, we look for the a random
@@ -239,7 +251,8 @@ class TextCurator(BaseCurator):
         return neg_rows
 
     def process_relevant_sentences(self, row):
-        """Extract relevant paragraph based on the 'relevant_paragraphs' column
+        """Extract relevant paragraph based on the 'relevant_paragraphs' column.
+
         This method will check the format of relevant paragraph and if it does
         not follow the standard, the logger will print out information about that
         and will return None.
@@ -249,7 +262,8 @@ class TextCurator(BaseCurator):
         Args:
             row (pandas.core.series.Series)
         Return:
-             sentence_revised (list of str) List of relevant sentences"""
+            sentence_revised (list of str) List of relevant sentences
+        """
         sentence_revised = self.clean_text(row["relevant_paragraphs"])
 
         if sentence_revised.startswith("[") or sentence_revised.endswith("]"):
@@ -278,17 +292,19 @@ class TextCurator(BaseCurator):
             return [sentence_revised]
 
     def get_full_paragraph(self, row, relevant_sentences):
-        """This method will find the full paragraph where the relevant_sentence column
-         is coming from. To achieve this:
+        r"""Find the full paragraph where the relevant_sentence column is coming from.
 
-         The content of the pdf mentioned in the source_page is loaded.
-         The content of page mentioned in source_page is selected.
-         The extracted text is divided by paragraphs "\n\n"
-         For each paragraphs in the page, will find a match for relevant_paragraph.
-         Note: The result can be an empty list if the paragraph can not retrieved.
-         Args:
-             row (pandas.core.series.Series): Each row of pandas dataframe.
-             relevant_sentences (list of str): List of processed relevant_paragraphs.
+        To achieve this:
+
+        The content of the pdf mentioned in the source_page is loaded.
+        The content of page mentioned in source_page is selected.
+        The extracted text is divided by paragraphs "\n\n"
+        For each paragraphs in the page, will find a match for relevant_paragraph.
+        Note: The result can be an empty list if the paragraph can not retrieved.
+
+        Args:
+            row (pandas.core.series.Series): Each row of pandas dataframe.
+            relevant_sentences (list of str): List of processed relevant_paragraphs.
         Returns:
             matches_list (list of str): list of full paragraphs.
         """
@@ -341,7 +357,8 @@ class TextCurator(BaseCurator):
         return matches_list
 
     def load_pdf_content(self, row):
-        """Load the content of a pdf file
+        """Load the content of a pdf file.
+
         If the extraction step is passed, the json file should be in the
         extraction_folder.
         Args:

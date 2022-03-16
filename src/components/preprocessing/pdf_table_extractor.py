@@ -1,3 +1,6 @@
+"""PDFTableExtractor."""
+
+
 from .base_component import BaseComponent
 import os
 from pdf2image import convert_from_path, pdfinfo_from_path
@@ -9,9 +12,7 @@ from multiprocessing import Pool, cpu_count
 from functools import partial
 import subprocess
 
-import gdown
 from tqdm import tqdm
-from src.components.utils.cscdtabnet_checkpoint_url import checkpoint_url
 
 import logging
 
@@ -19,6 +20,8 @@ _logger = logging.getLogger(__name__)
 
 
 class PDFTableExtractor(BaseComponent):
+    """PDFTableExtractor class."""
+
     def __init__(
         self,
         batch_size,
@@ -31,7 +34,8 @@ class PDFTableExtractor(BaseComponent):
         pretrained_s3_prefix,
         name="PDFTableExtractor",
     ):
-        """
+        """Initialize PDFTableExtractor class.
+
         Args:
             batch_size (An int): How many pages to infer bbox each run
             cscdtabnet_config (A PosixPath or str): Config file for cascadetabnet.
@@ -55,8 +59,8 @@ class PDFTableExtractor(BaseComponent):
         self.model = self.__create_model()
 
     def __create_model(self):
-        """
-        Download checkpoint file if not exist and return a detector model
+        """Download checkpoint file if not exist and return a detector model.
+
         Returns:
             an init_detector
         """
@@ -76,16 +80,13 @@ class PDFTableExtractor(BaseComponent):
         )
 
         # In case of connection error and incomplete download
-        download_successful = False
         import torch
 
         device = "cpu" if not torch.cuda.is_available() else "cuda:0"
         # while not download_successful:
         #     try:
-        det = init_detector(
-            self.cscdtabnet_config, self.cscdtabnet_ckpt, device=device
-        )
-                # download_successful = True
+        det = init_detector(self.cscdtabnet_config, self.cscdtabnet_ckpt, device=device)
+        # download_successful = True
         #     except OSError:
         #         _logger.info(
         #             "Error while downloading cascadetabnet checkpoint. Redownloading..."
@@ -96,8 +97,9 @@ class PDFTableExtractor(BaseComponent):
 
     @staticmethod
     def process_single_table(pdf_path, prefix, output_folder, dpi, iterable):
-        """Read a single table mentioned in pdf_path, it is as a standalone
-            function because of pickle issue
+        """Read a single table mentioned in pdf_path.
+
+        It is as a standalone function because of pickle issue
 
         Args:
             pdf_path (str): Path to the pdf
@@ -146,8 +148,8 @@ class PDFTableExtractor(BaseComponent):
             return None, None, page_num
 
     def infer_bbox(self, input_filepath):
-        """
-        Infer bbox for 1 file
+        """Infer bbox for 1 file.
+
         Args:
             input_filepath (A str)
         Returns:
@@ -212,8 +214,11 @@ class PDFTableExtractor(BaseComponent):
         return table_coords
 
     def extract_table(self, input_filepath, table_coords, output_folder):
-        """Given filepath and table coordinates of tables in each page,
-            extract tables using tabula and save them as csv
+        """Extract tables using tabula and save them as csv.
+
+        Given filepath and table coordinates of tables in each page,
+        extract tables using tabula and save them as csv.
+
         Args:
             input_filepath (A str or PosixPath)
             table_coords (A dictionary): Key=page number,
@@ -256,7 +261,7 @@ class PDFTableExtractor(BaseComponent):
         return tables, tables_meta
 
     def run(self, input_filepath, output_folder):
-        """Returns and saves tables extracted as csv
+        """Return and save tables extracted as csv.
 
         Args:
             input_filepath (A str or PosixPath)
@@ -280,7 +285,7 @@ class PDFTableExtractor(BaseComponent):
         return (tables, tables_meta)
 
     def run_folder(self, input_folder, output_folder):
-        """Runs run() for a folder of pdfs.
+        """Run run() for a folder of pdfs.
 
         Args:
             input_folder (A str or PosixPath)

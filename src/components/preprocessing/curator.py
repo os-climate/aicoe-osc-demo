@@ -1,3 +1,6 @@
+"""Curator."""
+
+
 import glob
 import logging
 
@@ -9,17 +12,19 @@ NAME_CLASS_MAPPING = {"TextCurator": TextCurator, "TableCurator": TableCurator}
 
 
 class Curator:
-    """A data curator component responsible for creating table and text training data based on annotated data
+    """Curator class.
+
+    A data curator component responsible for creating table and text training data based on annotated data
     Args:
         annotation_folder (str): path to the folder containing annotation excel files
     """
 
     def __init__(self, curators):
+        """Initialize Curator class."""
         self.curators = self.__create_curators(curators)
 
     def __create_curators(self, curators):
-        """
-        Returns a list of curator objects
+        """Return a list of curator objects.
 
         Args:
             curators (A list of str)
@@ -36,7 +41,7 @@ class Curator:
         return list_cura
 
     def run(self, input_extraction_folder, annotation_folder, output_folder):
-        """Runs curation for each curator.
+        """Run curation for each curator.
 
         Args:
             input_extraction_folder (A str or PosixPath)
