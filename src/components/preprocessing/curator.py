@@ -14,7 +14,7 @@ NAME_CLASS_MAPPING = {"TextCurator": TextCurator, "TableCurator": TableCurator}
 class Curator:
     """Curator class.
 
-    A data curator component responsible for creating table and text training data based on annotated data
+    A data curator component responsible for creating text training data based on annotated data
     Args:
         annotation_folder (str): path to the folder containing annotation excel files
     """
@@ -40,16 +40,17 @@ class Curator:
 
         return list_cura
 
-    def run(self, input_extraction_folder, annotation_folder, output_folder):
+    def run(self, input_extraction_folder, annotation_folder, output_folder, kpi_df):
         """Run curation for each curator.
 
         Args:
             input_extraction_folder (A str or PosixPath)
             annotation_folder (A str or PosixPath)
             output_folder (A str or PosixPath)
+            kpi_df (A DataFrame)
         """
         annotation_excels = glob.glob("{}/[!~$]*[.xlsx]".format(annotation_folder))
         logger.info("Received {} excel files".format(len(annotation_excels)))
 
         for curator_obj in self.curators:
-            curator_obj.run(input_extraction_folder, annotation_excels, output_folder)
+            curator_obj.run(input_extraction_folder, annotation_excels, output_folder, kpi_df)
