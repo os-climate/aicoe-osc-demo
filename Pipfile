@@ -27,7 +27,7 @@ gdown = "*"
 fuzzywuzzy = "*"
 torch = "==1.6.0"  # has to be compatible with farm version
 torchvision = "==0.7.0"  # has to be compatible with torch version
-mmcv-full = {file="https://download.openmmlab.com/mmcv/dist/cpu/torch1.6.0/mmcv_full-1.3.16-cp38-cp38-manylinux1_x86_64.whl"}  # has to match torch version
+mmcv-full = {file="https://download.openmmlab.com/mmcv/dist/cpu/torch1.6.0/mmcv_full-1.3.17-cp38-cp38-manylinux1_x86_64.whl"}  # has to match torch version
 mmdet = "*"
 openpyxl = "*"
 scikit-learn = "*"

@@ -13,7 +13,7 @@ import importlib
 import pandas as pd
 from farm.infer import Inferencer
 
-import src.components.utils.kpi_mapping as kpi_mapping
+from src.components.utils.kpi_mapping import get_kpi_mapping_category
 
 _logger = logging.getLogger(__name__)
 
@@ -27,24 +27,25 @@ class BaseRelevanceInfer(ABC):
 
     Args:
         infer_config: An instance of model_pipeline.config.InferConfig class
+        kpi_df: A pandas dataframe with given questions for relevance inference
     """
 
-    def __init__(self, infer_config):
+    def __init__(self, infer_config, kpi_df):
         """Initialize BaseRelevanceInfer class."""
         self.infer_config = infer_config
         self.data_type = self._get_data_type()
-        importlib.reload(kpi_mapping)
 
         # Questions can be set in the config file. If not provided, the prediction will be made for all KPI questions
         if len(self.infer_config.kpi_questions) > 0:
             self.questions = self.infer_config.kpi_questions
         else:
             # Filter KPIs based on section and whether they can be found in text or table.
+            kmc = get_kpi_mapping_category(kpi_df)
             self.questions = [
                 q_text
-                for q_id, (q_text, sect) in kpi_mapping.KPI_MAPPING_MODEL.items()
+                for q_id, (q_text, sect) in kmc['KPI_MAPPING_MODEL'].items()
                 if len(set(sect).intersection(set(self.infer_config.sectors))) > 0
-                and self.data_type.upper() in kpi_mapping.KPI_CATEGORY[q_id]
+                and self.data_type.upper() in kmc['KPI_CATEGORY'][q_id]
             ]
 
         self.result_dir = self.infer_config.result_dir[self.data_type]
@@ -165,102 +166,6 @@ class BaseRelevanceInfer(ABC):
         pass
 
 
-class TableRelevanceInfer(BaseRelevanceInfer):
-    """TableRelevanceInfer class.
-
-    This class is responsible for finding relevant tables to given questions.
-    Args:
-        infer_config (obj of model_pipeline.config.InferConfig)
-    """
-
-    def __init__(self, infer_config):
-        """Initialize TableRelevanceInfer class."""
-        super(TableRelevanceInfer, self).__init__(infer_config)
-
-    def _get_data_type(self):
-        return "Table"
-
-    def _gather_extracted_files(self):
-        """Gather all the extracted tables saved as CSV files for each pdf.
-
-        Returns:
-            table_paths_dicts(dict): A dictionary where the keys are the pdf names and the values are list of
-            CSV paths for each pdf
-        """
-        all_table_paths = sorted(Path(self.infer_config.extracted_dir).rglob("*.csv"))
-        table_paths_dicts = {}
-        for table_path in all_table_paths:
-            pdf_name = os.path.basename(table_path).split("_page")[0]
-            if pdf_name in table_paths_dicts:
-                table_paths_dicts[pdf_name].append(table_path)
-            else:
-                table_paths_dicts[pdf_name] = [table_path]
-        return table_paths_dicts
-
-    def _gather_data(self, pdf_name, table_paths):
-        """Gather all the table data for the given pdf and prepares them to be passed to pass to table model.
-
-        Args:
-            pdf_name (str): Name of the pdf
-            pdf_path (str): Path to the pdf
-        Returns:
-            table_data (A list of a list of dicts): The dict has "page", "pdf_name",
-                                                    "text", "text_b" keys.
-
-        """
-        all_table_texts = list(map(self.gather_text_from_table, table_paths))
-        # Filter tables that do not contain any text
-
-        all_table_texts_and_paths = [
-            (example, path)
-            for example, path in zip(all_table_texts, table_paths)
-            if re.search(r"\w+", example) is not None
-        ]
-        table_data = []
-        for kpi_question in self.questions:
-            # build combinations of each data point and each question
-            # Keep track of page number which the table is extracted from and the pdf it belongs to.
-            table_data.extend(
-                [
-                    {
-                        "page": re.search(r"page(\d*)", str(tb_path)).group(1),
-                        "pdf_name": pdf_name,
-                        "text": kpi_question,
-                        "text_b": tb_text,
-                        "csv_file": os.path.basename(tb_path),
-                    }
-                    for tb_text, tb_path in all_table_texts_and_paths
-                ]
-            )
-        _logger.info(
-            "###### Received {} examples for Table, number of questions: {}".format(
-                len(all_table_texts_and_paths), len(self.questions)
-            )
-        )
-        return table_data
-
-    @staticmethod
-    def gather_text_from_table(file):
-        """Extract all the text inside a csv file.
-
-        Args:
-            file (str): Path to a csv file
-        Return:
-            (A str): Texts inside all cells which contain text data.
-        """
-        table = pd.read_csv(file, index_col=0)
-        text = []
-        columns = list(table)
-        for column in columns:
-            column_proces = table[column].dropna().astype(str)
-            numbers = column_proces.str.findall(r"^\W*[0-9]*\W?[0-9]*?\W*$")
-            not_numbers = numbers.apply(lambda x: False if len(x) > 0 else True)
-            not_numbers_idx = not_numbers[not_numbers == True].index  # noqa: E712
-            column_text = [text for text in column_proces[not_numbers_idx]]
-            text += column_text
-        return ", ".join(text)
-
-
 class TextRelevanceInfer(BaseRelevanceInfer):
     """TextRelevanceInfer class.
 
@@ -269,9 +174,9 @@ class TextRelevanceInfer(BaseRelevanceInfer):
         infer_config (obj of model_pipeline.config.InferConfig)
     """
 
-    def __init__(self, infer_config):
+    def __init__(self, infer_config, kpi_df):
         """Initialize TextRelevanceInfer class."""
-        super(TextRelevanceInfer, self).__init__(infer_config)
+        super(TextRelevanceInfer, self).__init__(infer_config, kpi_df)
 
     def _get_data_type(self):
         return "Text"

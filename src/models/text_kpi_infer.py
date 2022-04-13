@@ -10,7 +10,7 @@ import pandas as pd
 from farm.data_handler.utils import write_squad_predictions
 from farm.infer import QAInferencer
 
-from src.components.utils.kpi_mapping import KPI_MAPPING
+from src.components.utils.kpi_mapping import get_kpi_mapping_category
 
 _logger = logging.getLogger(__name__)
 
@@ -105,12 +105,13 @@ class TextKPIInfer:
         self.model.close_multiprocessing_pool()
         return results
 
-    def infer_on_relevance_results(self, relevance_results_dir):
+    def infer_on_relevance_results(self, relevance_results_dir, kpi_df):
         """Make inference using the qa model on the relevant paragraphs.
 
         Args:
             relevance_results_dir (str): path to the directory where the csv file containing the relevant paragraphs
             and KPIs for text are stored (output from the relevance stage).
+            kpi_df (Pandas.DataFrame): A dataframe with kpi questions
         Returns:
             span_df (Pandas.DataFrame): A dataframe, containing best n answers for each KPI question for each pdf.
                 The n is defined by top_k. The following columns are added:
@@ -281,7 +282,7 @@ class TextKPIInfer:
             span_df.rename(columns={"text": "kpi", "text_b": "paragraph"}, inplace=True)
 
             # Add the kpi id
-            reversed_kpi_mapping = {value[0]: key for key, value in KPI_MAPPING.items()}
+            reversed_kpi_mapping = {value[0]: key for key, value in get_kpi_mapping_category(kpi_df)['KPI_MAPPING'].items()}
             span_df["kpi_id"] = span_df["kpi"].map(reversed_kpi_mapping)
 
             # Change the order of columns

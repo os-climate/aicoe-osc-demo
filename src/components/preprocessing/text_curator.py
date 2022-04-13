@@ -10,8 +10,8 @@ import re
 from pathlib import Path
 import importlib
 import pandas as pd
+from src.components.utils.kpi_mapping import get_kpi_mapping_category
 
-import src.components.utils.kpi_mapping as kpi_mapping
 from .base_curator import BaseCurator
 
 logger = logging.getLogger(__name__)
@@ -58,8 +58,8 @@ class TextCurator(BaseCurator):
         self.min_length_neg_sample = min_length_neg_sample
         self.data_type = data_type
         random.seed(seed)
-
-    def run(self, extraction_folder, annotation_excels, output_folder):
+    
+    def run(self, extraction_folder, annotation_excels, output_folder, kpi_df):
         """Create ESG text dataset (main method).
 
         Args:
@@ -82,12 +82,10 @@ class TextCurator(BaseCurator):
         # Drop the unnecessary column.
         df_result.drop(["Index"], axis=1, inplace=True)
 
-        # Map the KPI to KPI questions
-        importlib.reload(kpi_mapping)
 
         df_result["question"] = df_result.astype({"kpi_id": "float"}, errors="ignore")[
             "kpi_id"
-        ].map(kpi_mapping.KPI_MAPPING)
+        ].map(get_kpi_mapping_category(kpi_df)['KPI_MAPPING'])
         # In the result csv, the following KPIs are not mapped to any questions.
         # To avoid losing any data, the following
         # KPIs should be modified manually.
