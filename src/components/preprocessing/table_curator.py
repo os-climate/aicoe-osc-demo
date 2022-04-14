@@ -10,7 +10,7 @@ from collections import defaultdict
 import pandas as pd
 from fuzzywuzzy import fuzz
 
-from src.components.utils.kpi_mapping import KPI_MAPPING, KPI_CATEGORY
+from src.components.utils.kpi_mapping import get_kpi_mapping_category
 from .base_curator import BaseCurator
 
 logger = logging.getLogger(__name__)
@@ -50,7 +50,7 @@ class TableCurator(BaseCurator):
         self.company_to_exclude = company_to_exclude
         random.seed(seed)
 
-    def run(self, extraction_folder, annotation_excels, output_folder):
+    def run(self, extraction_folder, annotation_excels, output_folder, kpi_df):
         """Create ESG table dataset.
 
         It saves all examples in a csv.
@@ -69,7 +69,7 @@ class TableCurator(BaseCurator):
 
         examples_list = []
         for excel_file in self.annotation_excels:
-            examples_excel = self.process_single_annotation_file(excel_file)
+            examples_excel = self.process_single_annotation_file(excel_file, kpi_df)
             examples_list.extend(examples_excel)
 
         df_result = pd.DataFrame(examples_list).reset_index(drop=True)
@@ -211,7 +211,7 @@ class TableCurator(BaseCurator):
 
         return filename_to_stringarr
 
-    def __clean_annotation_file(self, df, annotation_filepath):
+    def __clean_annotation_file(self, df, annotation_filepath, kpi_df):
         """Clean annotation file.
 
         Returns a clean dataframe after dropping all NaN rows,
@@ -259,6 +259,11 @@ class TableCurator(BaseCurator):
             return filename
 
         df["source_file"] = df["source_file"].apply(get_pdf_name_right)
+
+        # get kpi mappings
+        kpi_dict = get_kpi_mapping_category(kpi_df)
+        KPI_MAPPING = kpi_dict["KPI_MAPPING"]
+        KPI_CATEGORY = kpi_dict["KPI_CATEGORY"]
 
         # kpi mapping. No need to make it as class method
         def map_kpi(r):
@@ -356,7 +361,7 @@ class TableCurator(BaseCurator):
         return meta_dict
 
     def process_single_annotation_file(
-        self, annotation_filepath, sheet_name="data_ex_in_xls"
+        self, annotation_filepath, kpi_df, sheet_name="data_ex_in_xls",
     ):
         """Create examples for a single excel file.
 
@@ -388,7 +393,7 @@ class TableCurator(BaseCurator):
             return [[]]
 
         # clean dataframe
-        df = self.__clean_annotation_file(df, annotation_filepath)
+        df = self.__clean_annotation_file(df, annotation_filepath, kpi_df)
 
         # table_meta contains {pdf_name:{page: list of table csvs, ...}, ...}
         table_meta = self.__create_table_meta()
