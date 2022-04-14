@@ -39,6 +39,7 @@ pyspellchecker = "*"
 spacy = "*"
 ipywidgets = "*"
 jupyterlab_widgets = "*"
+MarkupSafe = "<2.1.0"
 
 [requires]
 python_version = "3.8"
