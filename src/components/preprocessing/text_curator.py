@@ -8,6 +8,8 @@ import os
 import random
 import re
 from pathlib import Path
+
+import numpy as np
 import pandas as pd
 from src.components.utils.kpi_mapping import get_kpi_mapping_category
 
@@ -212,7 +214,6 @@ class TextCurator(BaseCurator):
             )
             with open(os.path.join(self.extraction_folder, random_json_path)) as f:
                 pdf_content = [json.load(f)]
-
         try:
             selected_pages = [p - 1 for p in ast.literal_eval(row["source_page"])]
         except SyntaxError:
@@ -221,16 +222,27 @@ class TextCurator(BaseCurator):
             else:
                 return None
 
+        # init random number generator
+        rng = np.random.default_rng(seed=42)
+
         neg_rows = []
         for _ in range(int(self.neg_pos_ratio)):
             while True:
                 if (len(pdf_content[0]) - 1) < 3:
                     return None
-                negative_page = random.randint(3, len(pdf_content[0]) - 1)
+
+                # randomly choose a page THAT EXISTS in the pdf
+                negative_page = rng.choice(list(pdf_content[0].keys()))
+
+                # it should not be the first two pages
+                if int(negative_page) < 3:
+                    continue
+
                 if negative_page in selected_pages:
                     continue
                 negative_page_content = pdf_content[0][str(negative_page)]
                 if len(negative_page_content) == 0:
+                    print("empty")
                     continue
                 negative_context = random.choice(negative_page_content)
                 negative_context = self.clean_text(negative_context)
