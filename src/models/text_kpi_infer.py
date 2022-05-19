@@ -282,7 +282,12 @@ class TextKPIInfer:
             span_df.rename(columns={"text": "kpi", "text_b": "paragraph"}, inplace=True)
 
             # Add the kpi id
-            reversed_kpi_mapping = {value[0]: key for key, value in get_kpi_mapping_category(kpi_df)['KPI_MAPPING'].items()}
+            reversed_kpi_mapping = {
+                value[0]: key
+                for key, value in get_kpi_mapping_category(kpi_df)[
+                    "KPI_MAPPING"
+                ].items()
+            }
             span_df["kpi_id"] = span_df["kpi"].map(reversed_kpi_mapping)
 
             # Change the order of columns

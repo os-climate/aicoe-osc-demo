@@ -53,4 +53,6 @@ class Curator:
         logger.info("Received {} excel files".format(len(annotation_excels)))
 
         for curator_obj in self.curators:
-            curator_obj.run(input_extraction_folder, annotation_excels, output_folder, kpi_df)
+            curator_obj.run(
+                input_extraction_folder, annotation_excels, output_folder, kpi_df
+            )

@@ -262,13 +262,13 @@ class TableCurator(BaseCurator):
 
         # get kpi mappings
         kpi_dict = get_kpi_mapping_category(kpi_df)
-        KPI_MAPPING = kpi_dict["KPI_MAPPING"]
-        KPI_CATEGORY = kpi_dict["KPI_CATEGORY"]
+        kpi_mapping = kpi_dict["KPI_MAPPING"]
+        kpi_category = kpi_dict["KPI_CATEGORY"]
 
         # kpi mapping. No need to make it as class method
         def map_kpi(r):
             try:
-                question = KPI_MAPPING[float(r)]
+                question = kpi_mapping[float(r)]
             except (KeyError, ValueError):
                 question = None
 
@@ -311,7 +311,7 @@ class TableCurator(BaseCurator):
         def clean_id(r):
             kpi_id = float(r["kpi_id"])
 
-            if r["data_type"] in KPI_CATEGORY[kpi_id]:
+            if r["data_type"] in kpi_category[kpi_id]:
                 cat = True
             else:
                 cat = False
@@ -361,7 +361,10 @@ class TableCurator(BaseCurator):
         return meta_dict
 
     def process_single_annotation_file(
-        self, annotation_filepath, kpi_df, sheet_name="data_ex_in_xls",
+        self,
+        annotation_filepath,
+        kpi_df,
+        sheet_name="data_ex_in_xls",
     ):
         """Create examples for a single excel file.
 
