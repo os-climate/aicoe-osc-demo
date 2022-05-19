@@ -4,11 +4,9 @@
 import json
 import logging
 import os
-import re
 from abc import abstractmethod, ABC
 from pathlib import Path
 import sys
-import importlib
 
 import pandas as pd
 from farm.infer import Inferencer
@@ -43,9 +41,9 @@ class BaseRelevanceInfer(ABC):
             kmc = get_kpi_mapping_category(kpi_df)
             self.questions = [
                 q_text
-                for q_id, (q_text, sect) in kmc['KPI_MAPPING_MODEL'].items()
+                for q_id, (q_text, sect) in kmc["KPI_MAPPING_MODEL"].items()
                 if len(set(sect).intersection(set(self.infer_config.sectors))) > 0
-                and self.data_type.upper() in kmc['KPI_CATEGORY'][q_id]
+                and self.data_type.upper() in kmc["KPI_CATEGORY"][q_id]
             ]
 
         self.result_dir = self.infer_config.result_dir[self.data_type]
