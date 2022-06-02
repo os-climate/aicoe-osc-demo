@@ -20,7 +20,11 @@ def get_kpi_mapping_category(df):
         (float(key)): value for key, value in _kpi_mapping_model.items()
     }
 
+    # Which questions should be added the year
+    add_year = df[df["add_year"]].kpi_id.tolist()
+
     return {
+        "ADD_YEAR": add_year,
         "KPI_MAPPING": kpi_mapping,
         "KPI_CATEGORY": kpi_category,
         "KPI_MAPPING_MODEL": kpi_mapping_model,
