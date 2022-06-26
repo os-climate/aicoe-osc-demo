@@ -13,27 +13,29 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "pdf_text_extraction.ipynb",
-            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
-            "env_vars": [
-              "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
-              "S3_BUCKET=ocp-odh-os-demo-s3",
-              "AUTOMATION=1"
-            ],
-            "include_subdirectories": false,
-            "invalidNodeError": null,
-            "outputs": [],
-            "dependencies": [
-              "config.py"
-            ],
-            "cpu": 1,
-            "memory": 16,
+            "label": "pdf_text_extraction.ipynb",
+            "component_parameters": {
+              "filename": "pdf_text_extraction.ipynb",
+              "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
+              "env_vars": [
+                "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
+                "S3_BUCKET=ocp-odh-os-demo-s3",
+                "AUTOMATION=1"
+              ],
+              "include_subdirectories": false,
+              "outputs": [],
+              "dependencies": [
+                "config.py"
+              ],
+              "cpu": 1,
+              "memory": 16
+            },
             "ui_data": {
               "label": "pdf_text_extraction.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
               "x_pos": 84,
               "y_pos": 203,
-              "description": "Notebook file"
+              "description": "Run notebook file"
             }
           },
           "inputs": [
@@ -70,29 +72,31 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "infer_relevance.ipynb",
-            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
-            "env_vars": [
-              "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
-              "S3_BUCKET=ocp-odh-os-demo-s3",
-              "AUTOMATION=1"
-            ],
-            "include_subdirectories": false,
-            "invalidNodeError": null,
-            "outputs": [],
-            "dependencies": [
-              "config_farm_train.py",
-              "config.py"
-            ],
-            "cpu": 1,
-            "memory": 16,
-            "gpu": 1,
+            "label": "infer_relevance.ipynb",
+            "component_parameters": {
+              "filename": "infer_relevance.ipynb",
+              "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
+              "env_vars": [
+                "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
+                "S3_BUCKET=ocp-odh-os-demo-s3",
+                "AUTOMATION=1"
+              ],
+              "include_subdirectories": false,
+              "outputs": [],
+              "dependencies": [
+                "config_farm_train.py",
+                "config.py"
+              ],
+              "cpu": 1,
+              "memory": 16,
+              "gpu": 1
+            },
             "ui_data": {
               "label": "infer_relevance.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
               "x_pos": 315,
               "y_pos": 203,
-              "description": "Notebook file"
+              "description": "Run notebook file"
             }
           },
           "inputs": [
@@ -136,30 +140,32 @@
           "type": "execution_node",
           "op": "execute-notebook-node",
           "app_data": {
-            "filename": "infer_kpi.ipynb",
-            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
-            "env_vars": [
-              "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
-              "S3_BUCKET=ocp-odh-os-demo-s3",
-              "AUTOMATION=1"
-            ],
-            "include_subdirectories": false,
-            "invalidNodeError": null,
-            "outputs": [],
-            "dependencies": [
-              "config_qa_farm_train.py",
-              "config_farm_train.py",
-              "config.py"
-            ],
-            "cpu": 1,
-            "gpu": 1,
-            "memory": 16,
+            "label": "infer_kpi.ipynb",
+            "component_parameters": {
+              "filename": "infer_kpi.ipynb",
+              "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
+              "env_vars": [
+                "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
+                "S3_BUCKET=ocp-odh-os-demo-s3",
+                "AUTOMATION=1"
+              ],
+              "include_subdirectories": false,
+              "outputs": [],
+              "dependencies": [
+                "config_qa_farm_train.py",
+                "config_farm_train.py",
+                "config.py"
+              ],
+              "cpu": 1,
+              "gpu": 1,
+              "memory": 16
+            },
             "ui_data": {
               "label": "infer_kpi.ipynb",
               "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
               "x_pos": 537,
               "y_pos": 202,
-              "description": "Notebook file"
+              "description": "Run notebook file"
             }
           },
           "inputs": [
@@ -197,81 +203,28 @@
               }
             }
           ]
-        },
-        {
-          "id": "bc33f1a4-d9f8-46df-9cd1-c266d9295458",
-          "type": "execution_node",
-          "op": "execute-notebook-node",
-          "app_data": {
-            "filename": "create_results_table.ipynb",
-            "runtime_image": "quay.io/os-climate/aicoe-osc-demo:v0.12.0",
-            "env_vars": [
-              "S3_ENDPOINT=https://s3.us-east-1.amazonaws.com",
-              "S3_BUCKET=ocp-odh-os-demo-s3",
-              "AUTOMATION=1",
-              "TRINO_PASSWD=",
-              "TRINO_HOST=trino-secure-odh-trino.apps.odh-cl1.apps.os-climate.org",
-              "TRINO_PORT=443",
-              "TRINO_USER="
-            ],
-            "include_subdirectories": false,
-            "outputs": [],
-            "dependencies": [
-              "config.py"
-            ],
-            "cpu": 1,
-            "memory": 8,
-            "invalidNodeError": null,
-            "ui_data": {
-              "label": "create_results_table.ipynb",
-              "image": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20viewBox%3D%220%200%2022%2022%22%3E%0A%20%20%3Cg%20class%3D%22jp-icon-warn0%20jp-icon-selectable%22%20fill%3D%22%23EF6C00%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.7%203.3v15.4H3.3V3.3h15.4m1.5-1.5H1.8v18.3h18.3l.1-18.3z%22%2F%3E%0A%20%20%20%20%3Cpath%20d%3D%22M16.5%2016.5l-5.4-4.3-5.6%204.3v-11h11z%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E%0A",
-              "x_pos": 771,
-              "y_pos": 202,
-              "description": "Notebook file"
-            }
-          },
-          "inputs": [
-            {
-              "id": "inPort",
-              "app_data": {
-                "ui_data": {
-                  "cardinality": {
-                    "min": 0,
-                    "max": -1
-                  },
-                  "label": "Input Port"
-                }
-              },
-              "links": [
-                {
-                  "id": "410dafa1-e6ec-464f-8822-12609bc71b65",
-                  "node_id_ref": "baab27b2-9d86-4835-8d2d-8a785f55765c",
-                  "port_id_ref": "outPort"
-                }
-              ]
-            }
-          ],
-          "outputs": [
-            {
-              "id": "outPort",
-              "app_data": {
-                "ui_data": {
-                  "cardinality": {
-                    "min": 0,
-                    "max": -1
-                  },
-                  "label": "Output Port"
-                }
-              }
-            }
-          ]
         }
       ],
       "app_data": {
         "ui_data": {
-          "comments": []
+          "comments": [
+            {
+              "id": "9623dad6-e1a3-4a85-bedc-d03b0053d50c",
+              "x_pos": 808.25,
+              "y_pos": 195,
+              "width": 175,
+              "height": 60,
+              "class_name": "d3-comment-rect",
+              "content": "The creation of table data is part of the demo3 notebook.",
+              "associated_id_refs": []
+            }
+          ]
         },
-        "version": 3
+        "version": 7,
+        "properties": {
+          "name": "inference",
+          "runtime": "Generic"
+        }
       },
       "runtime_ref": ""
     }
