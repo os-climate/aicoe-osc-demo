@@ -33,6 +33,7 @@ BASE_INFER_KPI_TABLE_S3_PREFIX = "aicoe-osc-demo/KPI_table"
 
 ckpt = "icdar_19b2_v2.pth"
 config_file = "cascade_mask_rcnn_hrnetv2p_w32_20e_v2.py"
+
 PDFTableExtractor_kwargs = {
     "batch_size": -1,
     "cscdtabnet_config": CONFIG_FOLDER / config_file,
@@ -80,6 +81,41 @@ TextCurator_kwargs = {
     "company_to_exclude": [],
     "create_neg_samples": True,
     "seed": SEED,
+}
+
+# config for KPI inference dataset curator
+TRAIN_KPI_INFERENCE_COLUMNS_TO_READ = [
+    "company",
+    "source_file",
+    "source_page",
+    "kpi_id",
+    "year",
+    "answer",
+    "data_type",
+    "relevant_paragraphs",
+]
+
+
+class CurateConfig:
+    """KPI inference data curation config."""
+
+    def __init__(self):
+        """Set default parameters for kpi text inference curation."""
+        self.val_ratio = 0
+        self.seed = SEED
+        self.find_new_answerable = True
+        self.create_unanswerable = True
+
+
+# Text KPI Inference Curator
+TextKPIInferenceCurator_kwargs = {
+    "annotation_folder": BASE_ANNOTATION_FOLDER,
+    "agg_annotation": BASE_ANNOTATION_FOLDER
+    / "20201030 1Qbit aggregated_annotations_needs_correction.xlsx",
+    "extracted_text_json_folder": BASE_EXTRACTION_FOLDER,
+    "output_squad_folder": DATA_FOLDER / "squad",
+    "relevant_text_path": DATA_FOLDER / "infer_relevance" / "*.csv",
+    # "relevant_text_path": DATA_FOLDER / "infer_relevance" / "text_3434.csv",
 }
 
 # Components
