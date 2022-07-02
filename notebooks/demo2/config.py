@@ -21,7 +21,7 @@ BASE_CURATION_FOLDER = DATA_FOLDER / "curation"
 BASE_INFER_KPI_FOLDER = DATA_FOLDER / "infer_KPI"
 
 CHECKPOINT_S3_PREFIX = "aicoe-osc-demo/saved_models"
-DATA_S3_PREFIX = "aicoe-osc-demo/pipeline_run/samples_145"
+DATA_S3_PREFIX = "aicoe-osc-demo/pipeline_run/samples_1"
 BASE_PDF_S3_PREFIX = f"{DATA_S3_PREFIX}/pdfs"
 BASE_ANNOTATION_S3_PREFIX = f"{DATA_S3_PREFIX}/annotations"
 BASE_EXTRACTION_S3_PREFIX = f"{DATA_S3_PREFIX}/extraction"
