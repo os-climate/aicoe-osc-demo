@@ -9,7 +9,7 @@ The following demos provide examples of how to use the tools available with [Ope
 * [Ingest raw data from S3 as tables on Trino](notebooks/demo1/demo1-create-tables.ipynb)
 * [Run SQL queries from a Jupyter Notebook environment](notebooks/demo1/demo1-join-tables.ipynb)
 * [Demo 1 Elyra Pipeline](https://github.com/os-climate/aicoe-osc-demo/blob/master/notebooks/demo1/demo1.pipeline)
-* [Results visualized on a Superset Dashboard](https://superset-secure-odh-superset.apps.odh-cl1.apps.os-climate.org/superset/dashboard/3/)
+* [Results visualized on a Superset Dashboard](https://superset-secure-odh-superset.apps.odh-cl1.apps.os-climate.org/superset/dashboard/3)
 * [Video on creating Elyra Pipelines and Superset Dashboard](https://youtu.be/TFgsR7UlcHA)
 
 
