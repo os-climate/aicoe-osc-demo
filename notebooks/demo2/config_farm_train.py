@@ -41,24 +41,10 @@ class FileConfig(Config):
         )
         self.extracted_tables_dir = os.path.join(self.data_dir, "extraction")
         self.dev_split = 0.2
-        self.train_filename = os.path.join(
-            self.data_dir, "processed", "kpi_train_split.csv"
-        )
-        self.dev_filename = os.path.join(
-            self.data_dir, "processed", "kpi_val_split.csv"
-        )
+        self.train_filename = os.path.join(self.data_dir, "kpi_train_split.csv")
+        self.dev_filename = os.path.join(self.data_dir, "kpi_val_split.csv")
         self.test_filename = None
-        self.saved_models_dir = os.path.join(
-            self.root,
-            "models",
-            self.experiment_name,
-            self.experiment_type,
-        )
-        self.model_performance_metrics_file = os.path.join(
-            self.root,
-            "reports",
-            "model_perf_metrics.csv",
-        )
+        self.saved_models_dir = os.path.join(self.root, "models", "RELEVANCE")
 
 
 class TokenizerConfig(Config):
@@ -86,7 +72,7 @@ class ProcessorConfig(Config):
         )
         # set to None if you don't want to load the\
         # vocab.json file
-        self.max_seq_len = 512
+        self.max_seq_len = 128
         self.dev_split = 0.2
         self.label_list = ["0", "1"]
         self.label_column_name = "label"  # label column name in data files
@@ -107,10 +93,10 @@ class ModelConfig(Config):
             raise ValueError("No existing model for this task")
         # set to None if you don't want to load the config file for this model
         self.load_dir = os.path.join(
-            self.root, "models", "pretrained", "relevance_roberta"
+            self.root, "models", "relevance_roberta"
         )  # relevance_roberta | relevance_roberta_table_headers
         self.lang_model = "roberta-base"
-        self.layer_dims = [768, 2]
+        self.layer_dims = [128, 2]
         self.lm_output_types = ["per_sequence"]  # or ["per_tokens"]
 
 
@@ -131,10 +117,10 @@ class TrainingConfig(Config):
         self.use_amp = True
         self.distributed = False
         self.learning_rate = 1e-5
-        self.n_epochs = 10
+        self.n_epochs = 1
         self.evaluate_every = 30
         self.dropout = 0.1
-        self.batch_size = 16
+        self.batch_size = 1
         self.grad_acc_steps = 1
         self.run_cv = False  # running cross-validation won't save a model
         self.xval_folds = 5

@@ -1,5 +1,4 @@
-"""Config QA farm."""
-
+"""Config QA FARM Training."""
 
 import logging
 import os
