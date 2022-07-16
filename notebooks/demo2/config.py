@@ -22,8 +22,8 @@ BASE_PROCESSED_DATA = DATA_FOLDER / "processed"
 BASE_INFER_KPI_FOLDER = DATA_FOLDER / "infer_KPI"
 BASE_INFER_RELEVANCE_FOLDER = DATA_FOLDER / "infer_relevance"
 
-EXPERIMENT_NAME = "test-demo-2"
-SAMPLE_SIZE = "small"
+EXPERIMENT_NAME = "test_cdp2"
+SAMPLE_SIZE = "cdp"
 
 
 DATA_S3_PREFIX = f"{EXPERIMENT_NAME}/pipeline_run/{SAMPLE_SIZE}"
@@ -118,7 +118,7 @@ class CurateConfig:
 TextKPIInferenceCurator_kwargs = {
     "annotation_folder": BASE_ANNOTATION_FOLDER,
     "agg_annotation": BASE_ANNOTATION_FOLDER
-    / "20201030 1Qbit aggregated_annotations_needs_correction.xlsx",
+    / "20220709 CDP aggregated_annotations_needs_correction.xlsx",
     "extracted_text_json_folder": BASE_EXTRACTION_FOLDER,
     "output_squad_folder": f"{DATA_FOLDER}/squad",
     "relevant_text_path": f"{BASE_INFER_RELEVANCE_FOLDER}/*.csv",

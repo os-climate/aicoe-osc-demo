@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 # or any hugging face model e.g. deepset/roberta-base-squad2, a-ware/roberta-large-squadv2
 # Full list at huggingface.co/models
 base_lm_model = "a-ware/roberta-large-squadv2"
-project_name = ""
+project_name = "test_cdp2"
 
 
 class QAConfig(Config):
@@ -135,6 +135,7 @@ class QATrainingConfig(QAConfig):
         if self.run_cv:
             self.evaluate_every = 0
         self.xval_folds = 5
+        self.num_processes = 1
 
 
 class QAMLFlowConfig(QAConfig):
@@ -169,7 +170,7 @@ class QAInferConfig(QAConfig):
         self.batch_size = 4  # 16
         self.gpu = True
         # Set to value 1 (or 0) to disable multiprocessing. Set to None to let Inferencer use all CPU cores minus one.
-        self.num_processes = None
+        self.num_processes = 1
         self.no_ans_boost = (
             -15
         )  # If increased, this will boost "No Answer" as prediction.

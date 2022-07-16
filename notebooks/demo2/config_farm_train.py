@@ -124,6 +124,7 @@ class TrainingConfig(Config):
         self.grad_acc_steps = 1
         self.run_cv = False  # running cross-validation won't save a model
         self.xval_folds = 5
+        self.num_processes = None
 
 
 class MLFlowConfig(Config):
@@ -157,7 +158,7 @@ class InferConfig(Config):
         self.batch_size = 16
         self.gpu = True
         self.num_processes = (
-            None  # Set to value of 1 (or 0) to disable multiprocessing.
+            1  # Set to value of 1 (or 0) to disable multiprocessing.
         )
         # Set to None to let Inferencer use all CPU cores minus one.
         self.disable_tqdm = (
