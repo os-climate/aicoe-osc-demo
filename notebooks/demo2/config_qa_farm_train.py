@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 # or any hugging face model e.g. deepset/roberta-base-squad2, a-ware/roberta-large-squadv2
 # Full list at huggingface.co/models
 base_lm_model = "a-ware/roberta-large-squadv2"
-project_name = ""
+project_name = "test_nodeadlock"
 
 
 class QAConfig(Config):
@@ -135,7 +135,7 @@ class QATrainingConfig(QAConfig):
         if self.run_cv:
             self.evaluate_every = 0
         self.xval_folds = 5
-
+        self.num_processes = 1
 
 class QAMLFlowConfig(QAConfig):
     """QAMLFlowConfig class."""

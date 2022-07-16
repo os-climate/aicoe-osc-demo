@@ -124,7 +124,7 @@ class TrainingConfig(Config):
         self.grad_acc_steps = 1
         self.run_cv = False  # running cross-validation won't save a model
         self.xval_folds = 5
-
+        self.num_processes = None
 
 class MLFlowConfig(Config):
     """MLFlowConfig class."""
