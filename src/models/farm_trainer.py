@@ -163,6 +163,7 @@ class FARMTrainer:
             processor=processor,
             batch_size=self.training_config.batch_size,
             distributed=self.training_config.distributed,
+            max_processes=self.training_config.num_processes,
         )
         n_batches = len(data_silo.loaders["train"])
         return data_silo, n_batches

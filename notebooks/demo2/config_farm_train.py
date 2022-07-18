@@ -5,6 +5,8 @@ import pathlib
 import os
 from farm.modeling.prediction_head import TextClassificationHead
 import torch
+import multiprocessing as mp # ??? should this be torch.multiprocessing ???
+
 from logging import getLogger, WARNING, INFO, DEBUG
 
 
@@ -124,7 +126,7 @@ class TrainingConfig(Config):
         self.grad_acc_steps = 1
         self.run_cv = False  # running cross-validation won't save a model
         self.xval_folds = 5
-
+        self.num_processes = mp.cpu_count() - 1 or 1
 
 class MLFlowConfig(Config):
     """MLFlowConfig class."""
