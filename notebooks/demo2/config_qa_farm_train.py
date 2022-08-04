@@ -56,6 +56,7 @@ class QAFileConfig(QAConfig):
             "reports",
             "qa_model_perf_metrics.csv",
         )
+        self.num_processes = 1
 
     def update_paths(self, data_dir, curated_data):
         """Update paths."""
