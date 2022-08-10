@@ -1,0 +1,119 @@
+### Use this settings file as a global file to be used by the user to set the ML model parameters.
+## Replace the config.py with this file
+# Update notebooks to use this settings file to use config, config_farm_train.py and config_qa_farm_train.py
+
+
+config:
+  experiment_name: "test-demo-2"
+  sample_size: "small"
+  inference_model_path: "aicoe-osc-demo/saved_models"
+  seed: 42
+
+extraction:
+  min_paragraph_length: 30
+  seed: 42
+  annotation_folder:
+  skip_extracted_files: false
+  use_extractions: true
+  store_extractions: true
+# All the input parameters for curation stage
+curation:
+  retrieve_paragraph: false
+  neg_pos_ratio: 1
+  columns_to_read: ["company", "source_file", "source_page", "kpi_id", "year", "answer", "data_type", "relevant_paragraphs"]
+  company_to_exclude: []
+  create_neg_samples: true
+  min_length_neg_sample: 50
+  seed: 41
+# All the input parameters for the relevance training stage
+train_relevance:
+  tokenizer_base_model: roberta-base
+  base_model: relevance_roberta
+  input_model_name:
+  output_model_name: output
+  train: true
+  seed: 42
+  tokenizer_pretrained_model_name_or_path: roberta-base # farm.tokenization input
+  processor: # farm.processor TextPairClassificationProcessor input
+    proc_max_seq_len: 512
+    proc_dev_split: 0.2
+    proc_label_list: ['0', '1']
+    proc_label_column_name: label
+    proc_delimiter: ","
+    proc_metric: acc
+  model: # farm.model TextClassificationHead input
+    model_lang_model: roberta-base
+    model_layer_dims: [768, 2]
+    model_lm_output_types: ["per_sequence"]
+  training: # multiple farm input parameter for training
+    run_hyp_tuning: false
+    use_amp: true
+    distributed: false
+    learning_rate: 1.0e-05
+    n_epochs: 1
+    evaluate_every: 100
+    dropout: 0.1
+    batch_size: 1
+    grad_acc_steps: 1
+    run_cv: false
+    xval_folds: 5
+    metric: acc
+    max_processes: 128
+# All the input parameters for the application of inferance on relevance data in the training stage
+infer_relevance:
+  skip_processed_files: true
+  batch_size: 16
+  gpu: true
+  num_processes:
+  disable_tqdm: true
+  kpi_questions: []
+  sectors: ["OG", "CM", "CU"]
+  return_class_probs: false
+# All the input parameters for the kpi training stage
+train_kpi:
+  input_model_name:
+  output_model_name: output
+  base_model: a-ware/roberta-large-squadv2
+  train: true
+  seed: 42
+  curation:
+    val_ratio: 0
+    seed: 42
+    find_new_answerable: true
+    create_unanswerable: true
+  data:
+    perform_splitting: true
+    dev_split: .2
+  mlflow:
+    track_experiment: false
+    url: http://localhost:5000
+  processor:
+    max_seq_len: 384
+    label_list: ["start_token", "end_token"]
+    metric: squad
+  model:
+    model_layer_dims: [768, 2]
+    model_lm_output_types: ["per_token"]
+  training:
+    run_hyp_tuning: false
+    use_amp: true
+    distributed: false
+    learning_rate: 1.0e-05
+    n_epochs: 1
+    evaluate_every: 100
+    dropout: 0.1
+    batch_size: 1
+    grad_acc_steps: 1
+    run_cv: false
+    xval_folds: 5
+    metric: f1
+    max_processes: 1 #processes used for splitting up the data. Leads in the moment to issues when not 1
+# All the input parameters for the application of kpi inferance
+infer_kpi:
+  skip_processed_files: false
+  top_k: 4
+  batch_size: 16
+  gpu: true
+  num_processes: # Set to value 1 (or 0) to disable multiprocessing. Set to None to let Inferencer use all CPU cores minus one.
+  no_ans_boost: -15
+# If increased, this will boost "No Answer" as prediction. Use large negative values (like -100) to disable giving "No answer" option.

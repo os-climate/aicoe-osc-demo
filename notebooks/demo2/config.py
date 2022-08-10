@@ -1,7 +1,10 @@
 """Default runtime config."""
 import pathlib
 import os
+import yaml
 
+with open("settings.yaml", "r") as f:
+    settings = yaml.load(f, Loader=yaml.FullLoader)
 # General config
 STAGE = "extract"  # "extract" | "curate "
 SEED = 42
@@ -9,7 +12,7 @@ SEED = 42
 if os.getenv("AUTOMATION"):
     ROOT = pathlib.Path("/opt/app-root")
 else:
-    ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
+    ROOT = pathlib.Path(".").resolve().parent.parent.parent
 
 CONFIG_FOLDER = ROOT
 CHECKPOINT_FOLDER = ROOT / "models"
@@ -22,8 +25,8 @@ BASE_PROCESSED_DATA = DATA_FOLDER / "processed"
 BASE_INFER_KPI_FOLDER = DATA_FOLDER / "infer_KPI"
 BASE_INFER_RELEVANCE_FOLDER = DATA_FOLDER / "infer_relevance"
 
-EXPERIMENT_NAME = "test-demo-2"
-SAMPLE_SIZE = "small"
+EXPERIMENT_NAME = settings["config"]["experiment_name"]
+SAMPLE_SIZE = settings["config"]["sample_size"]
 
 
 DATA_S3_PREFIX = f"{EXPERIMENT_NAME}/pipeline_run/{SAMPLE_SIZE}"
@@ -36,8 +39,7 @@ BASE_INFER_KPI_S3_PREFIX = f"{DATA_S3_PREFIX}/infer_KPI"
 BASE_INFER_KPI_TABLE_S3_PREFIX = f"{EXPERIMENT_NAME}/KPI_table"
 BASE_SAVED_MODELS_S3_PREFIX = f"{DATA_S3_PREFIX}/saved_models"
 # BASE_SAVED_MODELS_S3_PREFIX = "aicoe-osc-demo/saved_models"
-# CHECKPOINT_S3_PREFIX = BASE_SAVED_MODELS_S3_PREFIX
-CHECKPOINT_S3_PREFIX = "aicoe-osc-demo/saved_models"
+CHECKPOINT_S3_PREFIX = settings["config"]["inference_model_path"]
 
 ckpt = "icdar_19b2_v2.pth"
 config_file = "cascade_mask_rcnn_hrnetv2p_w32_20e_v2.py"
@@ -50,11 +52,7 @@ PDFTableExtractor_kwargs = {
 }
 
 # PDFTextExtractor
-PDFTextExtractor_kwargs = {
-    "min_paragraph_length": 30,
-    "annotation_folder": None,
-    "skip_extracted_files": False,
-}
+PDFTextExtractor_kwargs = settings["extraction"]
 
 TableCurator_kwargs = {
     "neg_pos_ratio": 1,
@@ -72,24 +70,7 @@ TableCurator_kwargs = {
     "seed": SEED,
 }
 
-TextCurator_kwargs = {
-    "retrieve_paragraph": False,
-    "neg_pos_ratio": 1,
-    "columns_to_read": [
-        "company",
-        "source_file",
-        "source_page",
-        "kpi_id",
-        "year",
-        "answer",
-        "data_type",
-        "relevant_paragraphs",
-    ],
-    "company_to_exclude": [],
-    "create_neg_samples": True,
-    "seed": SEED,
-}
-
+TextCurator_kwargs = settings["extraction"]
 # config for KPI inference dataset curator
 TRAIN_KPI_INFERENCE_COLUMNS_TO_READ = [
     "company",
