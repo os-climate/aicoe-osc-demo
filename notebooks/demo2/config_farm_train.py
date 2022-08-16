@@ -6,6 +6,10 @@ import os
 from farm.modeling.prediction_head import TextClassificationHead
 import torch
 from logging import getLogger, WARNING, INFO, DEBUG
+import yaml
+
+with open("settings.yaml", "r") as f:
+    settings = yaml.load(f, Loader=yaml.FullLoader)
 
 
 _logger = getLogger(__name__)
@@ -21,7 +25,7 @@ class Config:
         self.experiment_type = experiment_type
         self.experiment_name = project_name  # "test_farm"
         self.data_type = "Text"  # Text | Table
-        self.seed = 42
+        self.seed = settings["config"]["seed"]
         farm_infer_logging_level = "warning"  # FARM logging level during inference; supports info, warning, debug
         self.farm_infer_logging_level = LOGGING_MAPPING[farm_infer_logging_level]
 
@@ -40,11 +44,12 @@ class FileConfig(Config):
             self.data_dir, "curation", "esg_TABLE_dataset.csv"
         )
         self.extracted_tables_dir = os.path.join(self.data_dir, "extraction")
-        self.dev_split = 0.2
+        self.dev_split = settings["train_relevance"]["processor"]["proc_dev_split"]
         self.train_filename = os.path.join(self.data_dir, "kpi_train_split.csv")
         self.dev_filename = os.path.join(self.data_dir, "kpi_val_split.csv")
         self.test_filename = None
         self.saved_models_dir = os.path.join(self.root, "models", "RELEVANCE")
+        self.num_processes = settings["train_relevance"]["training"]["max_processes"]
 
 
 class TokenizerConfig(Config):
@@ -53,7 +58,9 @@ class TokenizerConfig(Config):
     def __init__(self, project_name):
         """Initialize TokenizerConfig class."""
         super().__init__(project_name)
-        self.pretrained_model_name_or_path = "roberta-base"
+        self.pretrained_model_name_or_path = settings["train_relevance"][
+            "tokenizer_base_model"
+        ]
         self.do_lower_case = False
 
 
@@ -72,12 +79,14 @@ class ProcessorConfig(Config):
         )
         # set to None if you don't want to load the\
         # vocab.json file
-        self.max_seq_len = 128
-        self.dev_split = 0.2
-        self.label_list = ["0", "1"]
-        self.label_column_name = "label"  # label column name in data files
-        self.delimiter = ","
-        self.metric = "acc"
+        self.max_seq_len = settings["train_relevance"]["processor"]["proc_max_seq_len"]
+        self.dev_split = settings["train_relevance"]["processor"]["proc_dev_split"]
+        self.label_list = settings["train_relevance"]["processor"]["proc_label_list"]
+        self.label_column_name = settings["train_relevance"]["processor"][
+            "proc_label_column_name"
+        ]  # label column name in data files
+        self.delimiter = settings["train_relevance"]["processor"]["proc_delimiter"]
+        self.metric = settings["train_relevance"]["processor"]["proc_metric"]
 
 
 class ModelConfig(Config):
@@ -95,9 +104,11 @@ class ModelConfig(Config):
         self.load_dir = os.path.join(
             self.root, "models", "relevance_roberta"
         )  # relevance_roberta | relevance_roberta_table_headers
-        self.lang_model = "roberta-base"
-        self.layer_dims = [128, 2]
-        self.lm_output_types = ["per_sequence"]  # or ["per_tokens"]
+        self.lang_model = settings["train_relevance"]["model"]["model_lang_model"]
+        self.layer_dims = settings["train_relevance"]["model"]["model_layer_dims"]
+        self.lm_output_types = settings["train_relevance"]["model"][
+            "model_lm_output_types"
+        ]  # or ["per_tokens"]
 
 
 class TrainingConfig(Config):
@@ -106,7 +117,7 @@ class TrainingConfig(Config):
     def __init__(self, project_name):
         """Initialize TrainingConfig class."""
         super().__init__(project_name)
-        self.run_hyp_tuning = False
+        self.run_hyp_tuning = settings["train_relevance"]["training"]["run_hyp_tuning"]
         self.use_cuda = True
 
         # Check if GPU exists
@@ -114,16 +125,16 @@ class TrainingConfig(Config):
             _logger.warning("No gpu available, setting use_cuda to False")
             self.use_cuda = False
 
-        self.use_amp = True
-        self.distributed = False
-        self.learning_rate = 1e-5
-        self.n_epochs = 1
-        self.evaluate_every = 30
-        self.dropout = 0.1
-        self.batch_size = 1
-        self.grad_acc_steps = 1
-        self.run_cv = False  # running cross-validation won't save a model
-        self.xval_folds = 5
+        self.use_amp = settings["train_relevance"]["training"]["use_amp"]
+        self.distributed = settings["train_relevance"]["training"]["distributed"]
+        self.learning_rate = settings["train_relevance"]["training"]["learning_rate"]
+        self.n_epochs = settings["train_relevance"]["training"]["n_epochs"]
+        self.evaluate_every = settings["train_relevance"]["training"]["evaluate_every"]
+        self.dropout = settings["train_relevance"]["training"]["dropout"]
+        self.batch_size = settings["train_relevance"]["training"]["batch_size"]
+        self.grad_acc_steps = settings["train_relevance"]["training"]["grad_acc_steps"]
+        self.run_cv = settings["train_relevance"]["training"]["run_cv"]
+        self.xval_folds = settings["train_relevance"]["training"]["xval_folds"]
 
 
 class MLFlowConfig(Config):
@@ -146,25 +157,14 @@ class InferConfig(Config):
         # please change the following accordingly
         self.data_types = ["Text"]  # ["Text", "Table"] supported "Text", "Table"
         self.load_dir = {"Text": os.path.join(self.root, "models", "RELEVANCE")}
-
-        # Use the following for the pre-trained models inside Docker
-        # oneqbit_checkpoint_dir = os.path.join(self.root, "model_pipeline", "saved_models", "1QBit_Pretrained_ESG")
-        # self.load_dir = {"Text": os.path.join(oneqbit_checkpoint_dir, "esg_text_checkpoint"),
-        #                 "Table": os.path.join(oneqbit_checkpoint_dir, "esg_table_checkpoint")}
-        self.skip_processed_files = (
-            True  # If set to True, will skip inferring on already processed files
-        )
-        self.batch_size = 16
-        self.gpu = True
-        self.num_processes = (
-            None  # Set to value of 1 (or 0) to disable multiprocessing.
-        )
-        # Set to None to let Inferencer use all CPU cores minus one.
-        self.disable_tqdm = (
-            True  # To not see the progress bar at inference time, set to True
-        )
-        self.extracted_dir = os.path.join(self.root, "data", "extraction")
         self.result_dir = {"Text": os.path.join(self.root, "data", "infer_relevance")}
-        self.kpi_questions = []
+        self.skip_processed_files = settings["infer_relevance"]["skip_processed_files"]
+        self.batch_size = settings["infer_relevance"]["batch_size"]
+        self.gpu = settings["infer_relevance"]["gpu"]
+        self.num_processes = settings["infer_relevance"]["num_processes"]
+        # Set to None to let Inferencer use all CPU cores minus one.
+        self.disable_tqdm = settings["infer_relevance"]["disable_tqdm"]
+        self.extracted_dir = os.path.join(self.root, "data", "extraction")
+        self.kpi_questions = settings["infer_relevance"]["kpi_questions"]
         # set to  ["OG", "CM", "CU"] for KPIs of all sectors.
-        self.sectors = ["OG", "CM", "CU"]  # ["UT"]
+        self.sectors = settings["infer_relevance"]["sectors"]
