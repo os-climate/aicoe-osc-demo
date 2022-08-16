@@ -26,10 +26,9 @@ BASE_INFER_KPI_FOLDER = DATA_FOLDER / "infer_KPI"
 BASE_INFER_RELEVANCE_FOLDER = DATA_FOLDER / "infer_relevance"
 
 EXPERIMENT_NAME = settings["config"]["experiment_name"]
-SAMPLE_SIZE = settings["config"]["sample_size"]
+SAMPLE_NAME = settings["config"]["sample_name"]
 
-
-DATA_S3_PREFIX = f"{EXPERIMENT_NAME}/pipeline_run/{SAMPLE_SIZE}"
+DATA_S3_PREFIX = f"{EXPERIMENT_NAME}/pipeline_run/{SAMPLE_NAME}"
 BASE_PDF_S3_PREFIX = f"{DATA_S3_PREFIX}/pdfs"
 BASE_ANNOTATION_S3_PREFIX = f"{DATA_S3_PREFIX}/annotations"
 BASE_EXTRACTION_S3_PREFIX = f"{DATA_S3_PREFIX}/extraction"
