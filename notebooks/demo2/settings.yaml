@@ -5,7 +5,7 @@
 
 config:
   experiment_name: "test-demo-2"
-  sample_size: "small"
+  sample_name: "small"
   inference_model_path: "aicoe-osc-demo/saved_models"
   seed: 42
 
