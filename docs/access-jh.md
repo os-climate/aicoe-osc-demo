@@ -1,6 +1,6 @@
 # Access JupyterHub Environment
 
-* In order to access the environment for the development of the project, you will have to be added to the odh-env-users group [here](https://github.com/orgs/os-climate/teams/odh-env-users). This can be done by opening an issue on [this page](https://github.com/os-climate/aicoe-osc-demo/issues) with the title "Add <USERNAME> to odh-env-users".
+* In order to access the environment for the development of the project, you will have to be added to the odh-env-users group [here](https://github.com/orgs/os-climate/teams/odh-env-users). This can be done by opening an issue on [this page](https://github.com/os-climate/OS-Climate-Community-Hub/issues/new) with the title "Add <USERNAME> to odh-env-users".
 
 * Once added to the user’s list, you should be able to access [JupyterHub](https://jupyterhub-odh-jupyterhub.apps.odh-cl2.apps.os-climate.org), [Kubeflow Pipelines](http://ml-pipeline-ui-kubeflow.apps.odh-cl2.apps.os-climate.org/), [Trino](https://cloudbeaver-odh-trino.apps.odh-cl1.apps.os-climate.org/), and [Superset Dashboard](https://superset-secure-odh-superset.apps.odh-cl1.apps.os-climate.org/). Go ahead and log into the JupyterHub instance.
 
