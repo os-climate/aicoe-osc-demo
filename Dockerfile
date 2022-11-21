@@ -1,6 +1,6 @@
-FROM quay.io/thoth-station/s2i-elyra-custom-notebook:v0.4.5
+FROM quay.io/thoth-station/s2i-elyra-custom-notebook:v0.4.7
 LABEL "name"="aicoe-osc-demo" \
-      "io.openshift.s2i.build.image"="quay.io/thoth-station/s2i-elyra-custom-notebook:v0.4.5" \
+      "io.openshift.s2i.build.image"="quay.io/thoth-station/s2i-elyra-custom-notebook:v0.4.7" \
       "io.openshift.s2i.scripts-url"="image:///opt/app-root/builder"
 
 ENV JUPYTER_ENABLE_LAB="1" \
