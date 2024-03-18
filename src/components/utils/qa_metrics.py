@@ -1,6 +1,5 @@
 """QA metrics."""
 
-
 import numpy as np
 from farm.evaluation.metrics import squad_EM, squad_f1
 from sklearn.metrics import confusion_matrix

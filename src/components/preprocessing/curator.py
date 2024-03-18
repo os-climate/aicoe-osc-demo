@@ -1,6 +1,5 @@
 """Curator."""
 
-
 import glob
 import logging
 
