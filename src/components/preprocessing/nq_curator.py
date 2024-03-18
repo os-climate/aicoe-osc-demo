@@ -1,6 +1,5 @@
 """Processing nq curator."""
 
-
 import logging
 import os
 from ast import literal_eval

@@ -1,4 +1,5 @@
 """Default runtime config."""
+
 import pathlib
 import os
 import yaml
