@@ -103,6 +103,7 @@ class TextKPIInferenceCurator(BaseKPIInferenceCurator):
         Args:
             df (A pandas dataframe)
         """
+
         # map kpi to question
         def map_kpi(r):
             try:
