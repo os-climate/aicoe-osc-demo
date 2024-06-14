@@ -8,6 +8,7 @@ The source code for preprocessing is available in the `src` directory preinstall
 * Extraction
 
     * In the text extraction notebook, we use pdf2image and pdfminer to extract text from the pdfs and then return json of the extracted text. We then upload the json file to the s3 bucket, and use it later for curation.
+    * Note: While running the pdf text extraction and other notebooks, make sure to set `%emv AUTOMATION=1` if you  want to download the pdfs in your local environment. 
 
     * In the table extraction notebook, we use a pre-trained table detection neural network to extract the image coordinates of all the tables in the input pdfs. Then, we use image processing tools to convert the images of tables into csv files. Finally, we upload these csv files to the s3 bucket, and use it later for curation.
 
