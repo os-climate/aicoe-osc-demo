@@ -1,6 +1,5 @@
 """Text KPI Inference."""
 
-
 import glob
 import logging
 import os
@@ -61,9 +60,9 @@ class TextKPIInfer:
         self.model.model.prediction_heads[0].n_best_per_sample = n_best_per_sample
         # If positive, this will boost "No Answer" as prediction.
         # If negative, this will decrease the model from giving "No Answer" as prediction.
-        self.model.model.prediction_heads[
-            0
-        ].no_ans_boost = self.infer_config.no_ans_boost
+        self.model.model.prediction_heads[0].no_ans_boost = (
+            self.infer_config.no_ans_boost
+        )
         self.result_dir = self.infer_config.result_dir["Text"]
         if not os.path.exists(self.result_dir):
             os.makedirs(self.result_dir)

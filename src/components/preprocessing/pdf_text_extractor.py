@@ -1,6 +1,5 @@
 """PDFTextExtractor."""
 
-
 import glob
 import io
 import json

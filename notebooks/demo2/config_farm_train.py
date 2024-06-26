@@ -1,6 +1,5 @@
 """Config FARM Training."""
 
-
 import pathlib
 import os
 from farm.modeling.prediction_head import TextClassificationHead
