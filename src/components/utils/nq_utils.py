@@ -1,6 +1,5 @@
 """NQ utils."""
 
-
 import re
 
 

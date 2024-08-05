@@ -1,6 +1,5 @@
 """PDFTableExtractor."""
 
-
 from .base_component import BaseComponent
 import os
 from pdf2image import convert_from_path, pdfinfo_from_path
