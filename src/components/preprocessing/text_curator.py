@@ -1,6 +1,5 @@
 """TextCurator."""
 
-
 import ast
 import json
 import logging
