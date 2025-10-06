@@ -1,6 +1,5 @@
 """FARM Trainer."""
 
-
 import logging
 import os
 
