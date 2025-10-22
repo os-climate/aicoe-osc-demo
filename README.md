@@ -7,6 +7,7 @@
 
 # Using Open Data Hub toolkit and Operate First infrastructure for OS-Climate
 
+
 This repository is the central location for the demos the Open Services (previously AICoE) team is developing within the [OS-Climate](https://github.com/os-climate) project.
 
 This demo shows how to use the tools provided by [Open Data Hub](https://opendatahub.io/) (ODH) running on the [Operate First](https://www.operate-first.cloud) cluster to perform ETL, create training and inference pipelines, create interactive dashboards and visualizations of our data. Specifically, we will define pipelines that preprocess data, train Natural Language Processing (NLP) models, and run inference, and finally display the results on a dashboard. We adapt the data processing and inference pipelines developed by the ALLIANZ NLP team for the OS climate project in this [repository](https://github.com/os-climate/corporate_data_pipeline). The inference pipeline takes raw pdf files as input and extracts the text content from them. Then, it uses a pre-trained language model to determine which paragraphs are relevant to answering each KPI question. Next, it uses another pre-trained language model to extract precise answers for these questions from the corresponding relevant paragraphs. Lastly, it uploads these results to a table on Trino.
