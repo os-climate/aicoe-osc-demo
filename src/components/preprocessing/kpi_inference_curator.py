@@ -149,11 +149,11 @@ class TextKPIInferenceCurator(BaseKPIInferenceCurator):
     def split_multi_paragraph(self, df):
         """Split multiple relevant paragraphs to individual examples."""
         # if single relevant paragraphs, then assuming only has single source page (fair enough)
-        df_single = df[df["relevant_paragraphs"].apply(len) == 1]
+        df_single = df[df["relevant_paragraphs"].apply(len) == 1].copy()
         df_single.loc[:, "source_page"] = df_single["source_page"].apply(lambda x: x[0])
-        df_single.loc[:, "relevant_paragraphs"] = df["relevant_paragraphs"].apply(
-            lambda x: x[0]
-        )
+        df_single.loc[:, "relevant_paragraphs"] = df_single[
+            "relevant_paragraphs"
+        ].apply(lambda x: x[0])
 
         # Otherwise
         df_multi = df[df["relevant_paragraphs"].apply(len) > 1]
