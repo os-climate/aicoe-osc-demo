@@ -197,7 +197,7 @@ class BaseKPIInferenceCurator(ABC):
             return {}
 
         pdf2pars = defaultdict(list)
-        for (i1, i2) in indices:
+        for i1, i2 in indices:
             pdf2pars[i1].append(i2)
 
         data = []

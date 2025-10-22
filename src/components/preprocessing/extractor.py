@@ -1,6 +1,5 @@
 """Extractor class."""
 
-
 from .pdf_table_extractor import PDFTableExtractor
 from .pdf_text_extractor import PDFTextExtractor
 import logging

@@ -1,4 +1,5 @@
 """Model settings."""
+
 model = dict(
     type="CascadeRCNN",
     # num_stages=3,
