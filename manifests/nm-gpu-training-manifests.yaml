@@ -277,7 +277,7 @@ items:
           kind: ImageStreamTag
           name: '11.0.3-cuda-s2i-py38-ubi8:latest'
         noCache: true
-        dockerfilePath: ubi8-py38/Dockerfile
+        dockerfilePath: Dockerfile
     postCommit: {}
     source:
       type: Git
@@ -337,7 +337,7 @@ items:
     name: neural-magic-gpu-cuda-11.0.3-notebook
     labels:
       opendatahub.io/build_type: "notebook_image"
-      opendatahub.io/notebook-name: "Neural Magic"
+      opendatahub.io/notebook-name: "NeuralMagic"
       os-climate/buildchain: cuda-11.0.3
   spec:
     nodeSelector: null
@@ -365,7 +365,7 @@ items:
     source:
       type: Git
       git:
-        ref: python38
+        ref: main
         uri: 'https://github.com/os-climate/neural-magic-notebook'
     triggers:
       - type: ImageChange
